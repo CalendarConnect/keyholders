@@ -1,0 +1,22 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="256" height="256" fill="none"/>
+  <circle cx="128" cy="128" r="120" fill="#4F46E5" opacity="0.1"/>
+  <circle cx="128" cy="128" r="90" stroke="white" stroke-width="4" opacity="0.8"/>
+  
+  <!-- Integration lines -->
+  <line x1="78" y1="128" x2="178" y2="128" stroke="white" stroke-width="3" stroke-dasharray="10 5"/>
+  <line x1="128" y1="78" x2="128" y2="178" stroke="white" stroke-width="3" stroke-dasharray="10 5"/>
+  
+  <!-- Nodes -->
+  <circle cx="128" cy="128" r="15" fill="white"/>
+  <circle cx="78" cy="128" r="10" fill="#8B5CF6"/>
+  <circle cx="178" cy="128" r="10" fill="#EC4899"/>
+  <circle cx="128" cy="78" r="10" fill="#10B981"/>
+  <circle cx="128" cy="178" r="10" fill="#F59E0B"/>
+  
+  <!-- Connection lines -->
+  <path d="M103 103L118 118" stroke="white" stroke-width="2"/>
+  <path d="M138 118L153 103" stroke="white" stroke-width="2"/>
+  <path d="M153 153L138 138" stroke="white" stroke-width="2"/>
+  <path d="M118 138L103 153" stroke="white" stroke-width="2"/>
+</svg> 
