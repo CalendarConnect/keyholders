@@ -11,30 +11,39 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://nextstarter.xyz/"),
   title: {
-    default: 'Next Starter',
-    template: `%s | Next Starter`
+    default: 'Keyholders Agency',
+    template: `%s | Keyholders Agency`
   },
   description:
-    "The Ultimate Nextjs 15 Starter Kit for quickly building your SaaS, giving you time to focus on what really matters",
+    "Unlock Business Growth Through Intelligent Automation with Keyholders Agency",
   openGraph: {
     description:
-      "The Ultimate Nextjs 15 Starter Kit for quickly building your SaaS, giving you time to focus on what really matters",
+      "Unlock Business Growth Through Intelligent Automation with Keyholders Agency",
     images: [
       "https://dwdwn8b5ye.ufs.sh/f/MD2AM9SEY8GucGJl7b5qyE7FjNDKYduLOG2QHWh3f5RgSi0c",
     ],
-    url: "https://nextstarter.xyz/",
+    url: "https://keyholders.agency/",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nextjs Starter Kit",
+    title: "Keyholders Agency",
     description:
-      "The Ultimate Nextjs 15 Starter Kit for quickly building your SaaS, giving you time to focus on what really matters",
+      "Unlock Business Growth Through Intelligent Automation",
     siteId: "",
-    creator: "@rasmickyy",
+    creator: "@christianbleeker",
     creatorId: "",
     images: [
       "https://dwdwn8b5ye.ufs.sh/f/MD2AM9SEY8GucGJl7b5qyE7FjNDKYduLOG2QHWh3f5RgSi0c",
     ],
+  },
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon/favicon.ico',
+    apple: '/favicon/favicon.ico',
+    other: {
+      rel: 'apple-touch-icon',
+      url: '/favicon/favicon.ico',
+    },
   },
 };
 
