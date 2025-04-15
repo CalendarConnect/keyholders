@@ -173,7 +173,7 @@ export default function Testimonials() {
                   ))}
                 </div>
                 
-                <blockquote className="mb-12">
+                <blockquote className="mb-8">
                   <p className="text-2xl font-light text-white leading-relaxed mb-5">"{testimonials[activeIndex].quote}"</p>
                   
                   <div className="flex flex-wrap items-center justify-between">
@@ -191,6 +191,7 @@ export default function Testimonials() {
                       <div>
                         <p className="font-medium text-white">{testimonials[activeIndex].author}</p>
                         <p className="text-purple-300">{testimonials[activeIndex].title}</p>
+                        <p className="text-purple-300/50 text-sm mt-1">{testimonials[activeIndex].company}</p>
                       </div>
                     </div>
                     
@@ -205,11 +206,6 @@ export default function Testimonials() {
                     </div>
                   </div>
                 </blockquote>
-                
-                {/* Company badge - repositioned */}
-                <div className="absolute bottom-2 right-8 opacity-30 z-10">
-                  <p className="text-lg font-bold text-white/20">{testimonials[activeIndex].company}</p>
-                </div>
               </div>
             </motion.div>
             
