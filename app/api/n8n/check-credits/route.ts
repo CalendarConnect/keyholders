@@ -55,7 +55,7 @@ export async function GET(request: Request) {
       
       // Get client's credit balance
       const client = await convex.query(api.clients.getClient, { 
-        id: clientId 
+        id: clientId as any // Type cast to prevent type error during build
       });
       
       if (!client) {

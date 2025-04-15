@@ -2,4 +2,9 @@
 .git
 node_modules
 .next
-*.log 
+*.log
+
+# Ignore n8n files
+app/api/n8n
+convex/n8n.ts
+convex/automations.ts 
