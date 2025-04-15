@@ -207,7 +207,7 @@ export default function Testimonials() {
                 </blockquote>
                 
                 {/* Company badge - repositioned */}
-                <div className="absolute bottom-6 right-8 opacity-30 z-10">
+                <div className="absolute bottom-2 right-8 opacity-30 z-10">
                   <p className="text-lg font-bold text-white/20">{testimonials[activeIndex].company}</p>
                 </div>
               </div>
