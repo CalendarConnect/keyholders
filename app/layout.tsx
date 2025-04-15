@@ -47,13 +47,16 @@ export const metadata: Metadata = {
   },
 };
 
+// Fallback publishable key for development and deployment
+const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "pk_test_placeholder-key-for-development-mode";
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider publishableKey={publishableKey}>
       <html lang="en" suppressHydrationWarning>
         <body className={GeistSans.className}>
           <Provider>
