@@ -107,9 +107,9 @@ export default function Testimonials() {
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="inline-block mb-8"
+            className="mb-6"
           >
-            <div className="py-1 px-5 rounded-full border border-purple-500/20 bg-purple-500/5 text-sm text-purple-300">
+            <div className="inline-block py-1.5 px-5 rounded-full border border-purple-500/20 bg-purple-500/5 text-sm text-purple-300">
               Success Stories
             </div>
           </motion.div>
