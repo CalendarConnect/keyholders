@@ -1,6 +1,5 @@
 import HeroSection from "@/components/homepage/hero-section";
 import ServicesGrid from "@/components/homepage/services-grid";
-import IntegrationsSection from "@/components/homepage/integrations-section";
 import Testimonials from "@/components/homepage/testimonials";
 import CTASection from "@/components/homepage/cta-section";
 import PageWrapper from "@/components/wrapper/page-wrapper";
@@ -73,7 +72,6 @@ export default async function Home() {
         <main className="flex flex-col w-full bg-[#050510]">
           <HeroSection />
           <ServicesGrid />
-          <IntegrationsSection />
           <Testimonials />
           <CTASection />
         </main>

@@ -69,6 +69,27 @@
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* Hide scrollbar for all browsers while keeping scroll functionality */
+  html, body {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer and Edge */
+  }
+  
+  /* Chrome, Safari and Opera */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbars for elements with scroll too */
+  * {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  *::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* Add styles for the n8n iframe integration */

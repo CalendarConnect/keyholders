@@ -232,83 +232,128 @@ export default function InfoSection() {
           Key Compliance Deadlines
         </h3>
         
-        <div ref={timelineRef} className="relative max-w-4xl mx-auto px-8 py-4">
-          {/* Timeline line */}
-          <div className="absolute top-0 bottom-0 left-4 md:left-1/2 w-px bg-gradient-to-b from-purple-500/50 via-blue-500/50 to-teal-500/50 timeline-line transform md:-translate-x-px"></div>
-
-          {/* February 2025 */}
-          <div className="timeline-item relative grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-8 mb-16">
-            <div className="md:col-span-2 md:text-right">
-              <div className="md:hidden absolute left-0 top-0 w-8 h-8 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center">
-                <div className="w-3 h-3 rounded-full bg-purple-400"></div>
+        <div ref={timelineRef} className="relative max-w-5xl mx-auto">
+          {/* Modern Timeline */}
+          <div className="hidden md:block h-1 w-full bg-gradient-to-r from-purple-500/30 via-blue-500/30 to-teal-500/30 rounded-full mb-12 timeline-line"></div>
+          
+          <div className="flex flex-col md:flex-row gap-8">
+            {/* February 2025 */}
+            <div className="timeline-item relative flex-1 group">
+              {/* Desktop indicator */}
+              <div className="hidden md:flex absolute top-0 left-0 right-0 justify-center -translate-y-[28px]">
+                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-500/20 to-purple-700/20 border border-purple-500/40 backdrop-blur-sm shadow-lg shadow-purple-500/20 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-4 h-4 rounded-full bg-purple-400 group-hover:bg-purple-300 transition-colors"></div>
+                </div>
               </div>
-              <div className="hidden md:block absolute left-1/2 top-0 w-8 h-8 rounded-full bg-purple-500/20 border border-purple-500/30 -translate-x-1/2 flex items-center justify-center">
-                <div className="w-3 h-3 rounded-full bg-purple-400"></div>
-              </div>
-              <h4 className="text-xl font-bold text-white mb-2 pl-10 md:pl-0">February 2025</h4>
-            </div>
-            <div className="md:col-span-3 pl-10 md:pl-0">
-              <div className="bg-gradient-to-br from-[#0c0c18] to-[#13131f] rounded-xl p-5 border border-purple-500/20">
-                <ul className="space-y-3 text-gray-300">
-                  <li className="flex items-start gap-2">
-                    <Check className="h-5 w-5 text-purple-400 flex-shrink-0 mt-0.5" />
-                    <span>Prohibitions on unacceptable risk systems</span>
+              
+              {/* Content card */}
+              <div className="bg-gradient-to-br from-[#13131f]/80 to-[#0c0c18]/80 backdrop-blur-md rounded-2xl p-6 border border-purple-500/20 h-full shadow-xl shadow-purple-900/10 group-hover:border-purple-500/40 transition-all duration-300">
+                {/* Mobile indicator */}
+                <div className="md:hidden flex items-center mb-4">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500/30 to-purple-700/30 border border-purple-500/30 flex items-center justify-center mr-3">
+                    <div className="w-3 h-3 rounded-full bg-purple-400"></div>
+                  </div>
+                  <h4 className="text-xl font-bold text-white">February 2025</h4>
+                </div>
+                
+                {/* Desktop title */}
+                <h4 className="hidden md:block text-2xl font-bold text-white mb-4 text-center">February 2025</h4>
+                
+                <ul className="space-y-4">
+                  <li className="flex items-start gap-3">
+                    <div className="mt-1 p-1.5 rounded-lg bg-purple-500/10">
+                      <Check className="h-5 w-5 text-purple-400" />
+                    </div>
+                    <span className="text-gray-200">Prohibitions on unacceptable risk systems</span>
                   </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="h-5 w-5 text-purple-400 flex-shrink-0 mt-0.5" />
-                    <span>Employee AI knowledge requirement begins</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          {/* August 2025-2026 */}
-          <div className="timeline-item relative grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-8 mb-16">
-            <div className="md:col-span-2 md:text-right">
-              <div className="md:hidden absolute left-0 top-0 w-8 h-8 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center">
-                <div className="w-3 h-3 rounded-full bg-blue-400"></div>
-              </div>
-              <div className="hidden md:block absolute left-1/2 top-0 w-8 h-8 rounded-full bg-blue-500/20 border border-blue-500/30 -translate-x-1/2 flex items-center justify-center">
-                <div className="w-3 h-3 rounded-full bg-blue-400"></div>
-              </div>
-              <h4 className="text-xl font-bold text-white mb-2 pl-10 md:pl-0">August 2025-2026</h4>
-            </div>
-            <div className="md:col-span-3 pl-10 md:pl-0">
-              <div className="bg-gradient-to-br from-[#0c0c18] to-[#13131f] rounded-xl p-5 border border-blue-500/20">
-                <ul className="space-y-3 text-gray-300">
-                  <li className="flex items-start gap-2">
-                    <Check className="h-5 w-5 text-blue-400 flex-shrink-0 mt-0.5" />
-                    <span>Rules for general-purpose AI begin</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="h-5 w-5 text-blue-400 flex-shrink-0 mt-0.5" />
-                    <span>High-risk system requirements phase in</span>
+                  <li className="flex items-start gap-3">
+                    <div className="mt-1 p-1.5 rounded-lg bg-purple-500/10">
+                      <Check className="h-5 w-5 text-purple-400" />
+                    </div>
+                    <span className="text-gray-200">Employee AI knowledge requirement begins</span>
                   </li>
                 </ul>
+                
+                {/* Card glow effect */}
+                <div className="absolute inset-0 -z-10 bg-gradient-to-br from-purple-600/5 via-purple-400/2 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
               </div>
             </div>
-          </div>
-
-          {/* August 2027 */}
-          <div className="timeline-item relative grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-8">
-            <div className="md:col-span-2 md:text-right">
-              <div className="md:hidden absolute left-0 top-0 w-8 h-8 rounded-full bg-teal-500/20 border border-teal-500/30 flex items-center justify-center">
-                <div className="w-3 h-3 rounded-full bg-teal-400"></div>
+            
+            {/* August 2025-2026 */}
+            <div className="timeline-item relative flex-1 group">
+              {/* Desktop indicator */}
+              <div className="hidden md:flex absolute top-0 left-0 right-0 justify-center -translate-y-[28px]">
+                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-500/20 to-blue-700/20 border border-blue-500/40 backdrop-blur-sm shadow-lg shadow-blue-500/20 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-4 h-4 rounded-full bg-blue-400 group-hover:bg-blue-300 transition-colors"></div>
+                </div>
               </div>
-              <div className="hidden md:block absolute left-1/2 top-0 w-8 h-8 rounded-full bg-teal-500/20 border border-teal-500/30 -translate-x-1/2 flex items-center justify-center">
-                <div className="w-3 h-3 rounded-full bg-teal-400"></div>
-              </div>
-              <h4 className="text-xl font-bold text-white mb-2 pl-10 md:pl-0">August 2027</h4>
-            </div>
-            <div className="md:col-span-3 pl-10 md:pl-0">
-              <div className="bg-gradient-to-br from-[#0c0c18] to-[#13131f] rounded-xl p-5 border border-teal-500/20">
-                <ul className="space-y-3 text-gray-300">
-                  <li className="flex items-start gap-2">
-                    <Check className="h-5 w-5 text-teal-400 flex-shrink-0 mt-0.5" />
-                    <span>Full compliance required across all systems</span>
+              
+              {/* Content card */}
+              <div className="bg-gradient-to-br from-[#13131f]/80 to-[#0c0c18]/80 backdrop-blur-md rounded-2xl p-6 border border-blue-500/20 h-full shadow-xl shadow-blue-900/10 group-hover:border-blue-500/40 transition-all duration-300">
+                {/* Mobile indicator */}
+                <div className="md:hidden flex items-center mb-4">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500/30 to-blue-700/30 border border-blue-500/30 flex items-center justify-center mr-3">
+                    <div className="w-3 h-3 rounded-full bg-blue-400"></div>
+                  </div>
+                  <h4 className="text-xl font-bold text-white">August 2025-2026</h4>
+                </div>
+                
+                {/* Desktop title */}
+                <h4 className="hidden md:block text-2xl font-bold text-white mb-4 text-center">August 2025-2026</h4>
+                
+                <ul className="space-y-4">
+                  <li className="flex items-start gap-3">
+                    <div className="mt-1 p-1.5 rounded-lg bg-blue-500/10">
+                      <Check className="h-5 w-5 text-blue-400" />
+                    </div>
+                    <span className="text-gray-200">Rules for general-purpose AI begin</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="mt-1 p-1.5 rounded-lg bg-blue-500/10">
+                      <Check className="h-5 w-5 text-blue-400" />
+                    </div>
+                    <span className="text-gray-200">High-risk system requirements phase in</span>
                   </li>
                 </ul>
+                
+                {/* Card glow effect */}
+                <div className="absolute inset-0 -z-10 bg-gradient-to-br from-blue-600/5 via-blue-400/2 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
+              </div>
+            </div>
+            
+            {/* August 2027 */}
+            <div className="timeline-item relative flex-1 group">
+              {/* Desktop indicator */}
+              <div className="hidden md:flex absolute top-0 left-0 right-0 justify-center -translate-y-[28px]">
+                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-teal-500/20 to-teal-700/20 border border-teal-500/40 backdrop-blur-sm shadow-lg shadow-teal-500/20 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-4 h-4 rounded-full bg-teal-400 group-hover:bg-teal-300 transition-colors"></div>
+                </div>
+              </div>
+              
+              {/* Content card */}
+              <div className="bg-gradient-to-br from-[#13131f]/80 to-[#0c0c18]/80 backdrop-blur-md rounded-2xl p-6 border border-teal-500/20 h-full shadow-xl shadow-teal-900/10 group-hover:border-teal-500/40 transition-all duration-300">
+                {/* Mobile indicator */}
+                <div className="md:hidden flex items-center mb-4">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-teal-500/30 to-teal-700/30 border border-teal-500/30 flex items-center justify-center mr-3">
+                    <div className="w-3 h-3 rounded-full bg-teal-400"></div>
+                  </div>
+                  <h4 className="text-xl font-bold text-white">August 2027</h4>
+                </div>
+                
+                {/* Desktop title */}
+                <h4 className="hidden md:block text-2xl font-bold text-white mb-4 text-center">August 2027</h4>
+                
+                <ul className="space-y-4">
+                  <li className="flex items-start gap-3">
+                    <div className="mt-1 p-1.5 rounded-lg bg-teal-500/10">
+                      <Check className="h-5 w-5 text-teal-400" />
+                    </div>
+                    <span className="text-gray-200">Full compliance required across all systems</span>
+                  </li>
+                </ul>
+                
+                {/* Card glow effect */}
+                <div className="absolute inset-0 -z-10 bg-gradient-to-br from-teal-600/5 via-teal-400/2 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
               </div>
             </div>
           </div>

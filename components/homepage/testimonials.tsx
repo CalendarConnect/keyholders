@@ -191,10 +191,6 @@ export default function Testimonials() {
                       <div>
                         <p className="font-medium text-white">{testimonials[activeIndex].author}</p>
                         <p className="text-purple-300">{testimonials[activeIndex].title}</p>
-                        {/* Only show company if different from title */}
-                        {testimonials[activeIndex].company !== testimonials[activeIndex].title && (
-                          <p className="text-purple-300/50 text-sm mt-1">{testimonials[activeIndex].company}</p>
-                        )}
                       </div>
                     </div>
                     

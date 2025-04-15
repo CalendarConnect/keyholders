@@ -249,7 +249,7 @@ export default function CTASection() {
                             size="lg"
                             className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white text-lg py-6 px-8 h-auto rounded-xl"
                           >
-                            <span className="mr-2">Book a Free Consultation</span>
+                            <span className="mr-2">Book a Free AI Consult!</span>
                             <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                           </Button>
                         </div>

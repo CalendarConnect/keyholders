@@ -270,18 +270,20 @@ export default function AIActHeroSection() {
             >
               <div className="relative">
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full opacity-70 blur-sm cta-glow"></div>
-                <Button
-                  size="lg"
-                  className="relative bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-full px-8 py-6 h-auto text-lg font-medium hover:shadow-lg hover:shadow-purple-500/20 transition-shadow group"
-                  onMouseEnter={() => handleButtonHover("main-cta")}
-                  onMouseLeave={() => handleButtonLeave("main-cta")}
-                >
-                  <span className="mr-2">Book a Consultation</span>
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-white rounded-full opacity-40 cta-light"></div>
-                    <ArrowRight className="h-5 w-5 group-hover:translate-x-0.5 transition-transform" />
-                  </div>
-                </Button>
+                <Link href="/contact">
+                  <Button
+                    size="lg"
+                    className="relative bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-full px-8 py-6 h-auto text-lg font-medium hover:shadow-lg hover:shadow-purple-500/20 transition-shadow group"
+                    onMouseEnter={() => handleButtonHover("main-cta")}
+                    onMouseLeave={() => handleButtonLeave("main-cta")}
+                  >
+                    <span className="mr-2">Book a Free AI Consult!</span>
+                    <div className="relative">
+                      <div className="absolute inset-0 bg-white rounded-full opacity-40 cta-light"></div>
+                      <ArrowRight className="h-5 w-5 group-hover:translate-x-0.5 transition-transform" />
+                    </div>
+                  </Button>
+                </Link>
               </div>
 
               <Link

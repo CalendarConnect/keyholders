@@ -200,47 +200,6 @@ export default function BenefitsSection() {
           ))}
         </div>
 
-        <div className="bg-gradient-to-br from-[#0c0c18] to-[#13131f] rounded-xl p-8 border border-white/5 relative overflow-hidden">
-          {/* Background glow effect */}
-          <div className="absolute -left-32 -top-32 w-64 h-64 bg-purple-600/10 rounded-full blur-[80px]"></div>
-          <div className="absolute -right-32 -bottom-32 w-64 h-64 bg-blue-600/10 rounded-full blur-[80px]"></div>
-          
-          {/* Main content */}
-          <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="max-w-2xl">
-              <h3 className="text-2xl font-bold text-white mb-4">Popular Integration Combinations</h3>
-              <p className="text-gray-300 mb-8">
-                Pre-built, AI Act-compliant automation solutions ready to deploy:
-              </p>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-white/5 rounded-lg p-4 border border-white/10">
-                  <p className="font-semibold text-white mb-2">Slack + N8N</p>
-                  <p className="text-sm text-gray-400">Automate workflows from conversations while maintaining compliance documentation</p>
-                </div>
-                
-                <div className="bg-white/5 rounded-lg p-4 border border-white/10">
-                  <p className="font-semibold text-white mb-2">HubSpot + OpenAI</p>
-                  <p className="text-sm text-gray-400">Customer communications with appropriate transparency and content controls</p>
-                </div>
-                
-                <div className="bg-white/5 rounded-lg p-4 border border-white/10">
-                  <p className="font-semibold text-white mb-2">Notion + Google Calendar</p>
-                  <p className="text-sm text-gray-400">Meeting scheduling and documentation with proper oversight mechanisms</p>
-                </div>
-              </div>
-            </div>
-            
-            <div className="flex-shrink-0">
-              <Link href="/integrations/ai-act">
-                <Button variant="outline" className="border-purple-500 text-purple-400 hover:bg-purple-500/10 hover:text-purple-300 group">
-                  <span className="mr-2">Explore more integrations</span>
-                  <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );

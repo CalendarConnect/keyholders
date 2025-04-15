@@ -1,8 +1,6 @@
 import AIActHeroSection from "@/components/ai-act/hero-section";
 import InfoSection from "@/components/ai-act/info-section";
 import BenefitsSection from "@/components/ai-act/benefits-section";
-import StatsSection from "@/components/ai-act/stats-section";
-import BlogSection from "@/components/ai-act/blog-section";
 import CTASection from "@/components/ai-act/cta-section";
 import PageWrapper from "@/components/wrapper/page-wrapper";
 import { Metadata } from "next";
@@ -78,8 +76,6 @@ export default function AIActPage() {
           <AIActHeroSection />
           <InfoSection />
           <BenefitsSection />
-          <StatsSection />
-          <BlogSection />
           <CTASection />
         </main>
       </PageWrapper>
