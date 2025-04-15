@@ -23,7 +23,6 @@ export default function AIActHeroSection() {
   const statsRef = useRef<HTMLDivElement>(null);
   const particlesRef = useRef<HTMLDivElement>(null);
   const cursorTrailerRef = useRef<HTMLDivElement>(null);
-  const cursorDotRef = useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState<string | null>(null);
 
@@ -89,14 +88,7 @@ export default function AIActHeroSection() {
       setMousePosition({ x: clientX, y: clientY });
       
       // Move cursor trailer with a slight delay
-      if (cursorTrailerRef.current && cursorDotRef.current) {
-        gsap.to(cursorDotRef.current, {
-          x: clientX,
-          y: clientY,
-          duration: 0.1,
-          ease: "power1.out"
-        });
-        
+      if (cursorTrailerRef.current) {
         gsap.to(cursorTrailerRef.current, {
           x: clientX,
           y: clientY,
@@ -202,16 +194,6 @@ export default function AIActHeroSection() {
       <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent opacity-30"></div>
       
       {/* Cursor effects */}
-      <div 
-        ref={cursorDotRef}
-        className="fixed w-2 h-2 rounded-full bg-white opacity-70 pointer-events-none z-50 will-change-transform"
-        style={{
-          left: '-5px',
-          top: '-5px',
-          transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`
-        }}
-      ></div>
-      
       <div 
         ref={cursorTrailerRef}
         className="fixed w-[350px] h-[350px] rounded-full pointer-events-none z-10 opacity-20 will-change-transform"
