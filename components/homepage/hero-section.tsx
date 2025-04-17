@@ -298,7 +298,7 @@ export default function HeroSection() {
               <div className="relative">
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full opacity-70 blur-sm cta-glow"></div>
                 <a 
-                  href="https://form.typeform.com/to/tTwl3rjL"
+                  href="https://astonishing-moonflower-5d7.notion.site/1d731f3c9d2e8158a614d906aedd7573"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
