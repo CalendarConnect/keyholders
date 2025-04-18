@@ -125,11 +125,15 @@ export default function AIScanPage() {
                     
                     {/* Notion Form Embed */}
                     <div className="relative z-10">
-                      <iframe 
-                        src="https://astonishing-moonflower-5d7.notion.site/1d731f3c9d2e8158a614d906aedd7573?pvs=105" 
-                        className="w-full min-h-[800px] md:min-h-[700px] border-0 rounded-lg"
-                        title="Keyholders AI Automation Scan"
-                      />
+                      <div className="w-full min-h-[800px] md:min-h-[700px] border-0 rounded-lg bg-white">
+                        <iframe 
+                          src="https://tally.so/embed/mRPLp5?alignLeft=1&hideTitle=1&transparentBackground=1" 
+                          className="w-full min-h-[800px] md:min-h-[700px] border-0 rounded-lg"
+                          title="Keyholders AI Automation Scan"
+                          frameBorder="0"
+                          allowFullScreen
+                        ></iframe>
+                      </div>
                     </div>
                   </div>
                 </div>
