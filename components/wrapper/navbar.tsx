@@ -140,6 +140,14 @@ export default function NavBar() {
                       Case Studies
                     </Button>
                   </Link>
+                  <Link href="/ai-scan" prefetch={true}>
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start text-base font-normal h-11 border border-purple-900/20 mb-2 text-white hover:bg-purple-500/10 hover:text-purple-300 transition-colors"
+                    >
+                      AI Scan
+                    </Button>
+                  </Link>
                   <Link href="/careers" prefetch={true}>
                     <Button
                       variant="ghost"
@@ -227,6 +235,9 @@ export default function NavBar() {
 
           <Link href="/case-studies" prefetch={true}>
             <span className="text-white hover:text-purple-300 transition-colors text-sm">Case Studies</span>
+          </Link>
+          <Link href="/ai-scan" prefetch={true}>
+            <span className="text-white hover:text-purple-300 transition-colors text-sm">AI Scan</span>
           </Link>
           <Link href="/about" prefetch={true}>
             <span className="text-white hover:text-purple-300 transition-colors text-sm">About Us</span>

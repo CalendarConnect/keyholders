@@ -263,9 +263,7 @@ export default function CTASection() {
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                     <Link
-                      href="https://astonishing-moonflower-5d7.notion.site/1d731f3c9d2e8158a614d906aedd7573"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="/ai-scan"
                       className="flex items-center justify-center px-4 py-3 rounded-lg bg-white/5 hover:bg-white/10 text-white text-center transition-colors"
                     >
                       <Zap className="mr-2 h-4 w-4" />
