@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { ArrowLeft, Wand2, LogOut, Expand, Shrink, Clipboard, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -206,7 +206,7 @@ function LoadingSpinner() {
   );
 }
 
-export default function ThreadPage() {
+function ThreadPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [reply, setReply] = useState('');
@@ -596,5 +596,20 @@ export default function ThreadPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ThreadPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center h-full">
+        <div className="flex flex-col items-center gap-4">
+          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-foreground"></div>
+          <p className="text-muted-foreground">Loading conversation...</p>
+        </div>
+      </div>
+    }>
+      <ThreadPageContent />
+    </Suspense>
   );
 } 
