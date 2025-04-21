@@ -21,6 +21,7 @@ import type * as credits from "../credits.js";
 import type * as executions from "../executions.js";
 import type * as http from "../http.js";
 import type * as internal_ from "../internal.js";
+import type * as linkedout from "../linkedout.js";
 import type * as n8nWorkflowMutations from "../n8nWorkflowMutations.js";
 import type * as n8nWorkflowQueries from "../n8nWorkflowQueries.js";
 import type * as n8nWorkflows from "../n8nWorkflows.js";
@@ -45,6 +46,7 @@ declare const fullApi: ApiFromModules<{
   executions: typeof executions;
   http: typeof http;
   internal: typeof internal_;
+  linkedout: typeof linkedout;
   n8nWorkflowMutations: typeof n8nWorkflowMutations;
   n8nWorkflowQueries: typeof n8nWorkflowQueries;
   n8nWorkflows: typeof n8nWorkflows;

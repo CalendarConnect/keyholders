@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "title": "Keyholders Agency",
+    "description": "Unlock Business Growth Through Intelligent Automation with Keyholders Agency"
+  },
+  "nav": {
+    "euAiAct": "EU AI Act",
+    "services": "Services",
+    "caseStudies": "Case Studies",
+    "aiScan": "AI Scan",
+    "about": "About Us",
+    "careers": "Become a Keyholder",
+    "contact": "Contact",
+    "clientPortal": "Client Portal",
+    "signIn": "Sign in"
+  },
+  "services": {
+    "revops": {
+      "title": "RevOps Automation",
+      "description": "Streamline your revenue operations with custom automation solutions."
+    },
+    "businessIntelligence": {
+      "title": "Business Intelligence",
+      "description": "Turn your data into actionable insights with our analytics solutions."
+    },
+    "integrations": {
+      "title": "Custom Integrations",
+      "description": "Connect all your systems to create a unified data ecosystem."
+    }
+  },
+  "companySection": {
+    "title": "Company"
+  },
+  "homepage": {
+    "hero": {
+      "title": "Unlock Business Growth Through Intelligent Automation",
+      "description": "Our bespoke RevOps solutions connect your entire tech stack to eliminate silos, reduce manual tasks, and accelerate your business performance.",
+      "textStates": [
+        { 
+          "highlight": "Spot issues faster", 
+          "description": "Our automation solutions highlight inefficiencies in real-time" 
+        },
+        { 
+          "highlight": "Convert more leads", 
+          "description": "Intelligent workflows that nurture prospects through each stage" 
+        },
+        { 
+          "highlight": "Scale operations", 
+          "description": "Systems that grow with your business without adding overhead" 
+        }
+      ],
+      "cta": {
+        "primary": "Do the AI Scan!",
+        "secondary": "View case studies"
+      },
+      "stats": {
+        "timeSaved": {
+          "value": "85%",
+          "label": "Time saved on manual data entry tasks"
+        },
+        "conversion": {
+          "value": "42%",
+          "label": "Average increase in lead conversion rates"
+        },
+        "automation": {
+          "value": "24/7",
+          "label": "Automation systems that never sleep"
+        }
+      }
+    },
+    "services": {
+      "title": "Transform Your Workflow",
+      "description": "We don't just automate tasks—we reinvent how your business operates. Our solutions help you spot issues faster and focus on what matters.",
+      "hint": "Tap or click cards to see the outcomes",
+      "cards": {
+        "seeResults": "See results",
+        "backToService": "Back to service"
+      },
+      "items": [
+        {
+          "id": 1,
+          "title": "RevOps Automation",
+          "description": "Streamline your revenue operations with intelligent automation solutions.",
+          "outcomeTitle": "Revenue Growth",
+          "outcomeDescription": "35% increase in conversions and 28% faster deal cycles. Your team can focus on strategy instead of repetitive tasks."
+        },
+        {
+          "id": 2,
+          "title": "Business Intelligence",
+          "description": "Transform data into actionable insights that drive strategic decision-making.",
+          "outcomeTitle": "Data-Driven Success",
+          "outcomeDescription": "Access real-time insights that reveal hidden opportunities and help you make confident decisions faster than competitors."
+        },
+        {
+          "id": 3,
+          "title": "Smart Scheduling",
+          "description": "Eliminate coordination headaches with intelligent meeting management.",
+          "outcomeTitle": "Time Reclaimed",
+          "outcomeDescription": "Save 5+ hours weekly on scheduling and coordination. Higher meeting attendance rates and zero double-bookings."
+        },
+        {
+          "id": 4,
+          "title": "Productivity Systems",
+          "description": "Track and optimize performance with seamless time management solutions.",
+          "outcomeTitle": "Optimized Performance",
+          "outcomeDescription": "20% boost in team productivity with clear metrics on what's working and what needs improvement."
+        },
+        {
+          "id": 5,
+          "title": "Unified Data Flow",
+          "description": "Connect your entire tech ecosystem with seamless data integration.",
+          "outcomeTitle": "Single Source of Truth",
+          "outcomeDescription": "Eliminate data silos and reduce errors by 40%. Every system updated in real-time with consistent information."
+        },
+        {
+          "id": 6,
+          "title": "Team Synchronization",
+          "description": "Foster collaboration with purpose-built workflows and communication tools.",
+          "outcomeTitle": "Seamless Collaboration",
+          "outcomeDescription": "Cross-functional teams working in perfect harmony with 50% faster project completion and improved satisfaction."
+        },
+        {
+          "id": 7,
+          "title": "System Connectivity",
+          "description": "Create powerful connections between all your business platforms and tools.",
+          "outcomeTitle": "Unified Workflows",
+          "outcomeDescription": "Automated data exchange between systems eliminates 95% of manual transfers and copy-paste tasks."
+        },
+        {
+          "id": 8,
+          "title": "AI Assistants",
+          "description": "Deploy intelligent assistants that handle routine tasks with human-like precision.",
+          "outcomeTitle": "24/7 Operation",
+          "outcomeDescription": "Continuous task execution and customer service that never sleeps, reducing response times by 80%."
+        }
+      ]
+    }
+  },
+  "aiAct": {
+    "meta": {
+      "title": "EU AI Act Compliance | Intelligent Automation Solutions",
+      "description": "Navigate the EU AI Act with confidence. Our AI-powered automation solutions ensure regulatory compliance while accelerating your business growth."
+    },
+    "hero": {
+      "badge": "EU AI Act",
+      "importantRegulation": "Important Regulation",
+      "heading": "The EU AI Act and GDPR in AI Automation",
+      "subheading": "AI regulation as roadmap, not roadblock",
+      "description": "Implementing AI in your organisation isn't just a technical process — it also means aligning with regulation. The EU AI Act and the GDPR determine how AI may be used in your operations. And rightly so. These laws aren't a barrier. They're a blueprint for responsible automation. With the right approach, you avoid risks — and build stronger.",
+      "primaryCta": "Start your free AI Scan",
+      "secondaryCta": "Book a short intro call"
+    },
+    "whenApply": {
+      "heading": "When do the AI Act and GDPR apply?",
+      "description": "Almost any AI-based automation falls under this legislation when you:",
+      "items": [
+        "process personal data (like customer info or job applications)",
+        "automate decisions that impact individuals (such as quotes or evaluations)",
+        "use generative AI (like ChatGPT or other LLMs)",
+        "let staff interact with AI tools in their daily work"
+      ],
+      "additionalInfo": "The GDPR governs the use of personal data. The AI Act builds on this with specific requirements around transparency, human oversight, and risk management for AI systems."
+    },
+    "requirements": {
+      "heading": "What do you need to have in place?",
+      "description": "When using AI in your workflows, the following often applies:",
+      "items": [
+        {
+          "title": "Clarity for users",
+          "description": "When AI is involved, people must know."
+        },
+        {
+          "title": "Zero Data Retention",
+          "description": "For sensitive data, GPT can be configured to avoid all storage and logging."
+        },
+        {
+          "title": "DPA (Data Processing Agreement)",
+          "description": "If you use GPT via OpenAI, a DPA is legally required."
+        },
+        {
+          "title": "Cloud Act transparency",
+          "description": "Because OpenAI is a US-based company, customers must be informed about the potential implications of US legislation."
+        },
+        {
+          "title": "AI literacy",
+          "description": "As of February 2025, employees must understand how to use AI safely and responsibly."
+        }
+      ]
+    },
+    "howWeHelp": {
+      "heading": "How we help",
+      "description": "At Keyholders, we guide clients end-to-end. We don't make automation harder — we make it easier. Our role doesn't end after implementation — we remain available for as long as your automation is running.",
+      "items": [
+        "We analyse your process and identify which regulations apply",
+        "We guide your DPA request with OpenAI (if needed)",
+        "We configure Zero Data Retention on all GPT integrations",
+        "We clearly inform you about risks like the US CLOUD Act",
+        "We document your AI workflows in line with the AI Act",
+        "We train your team using practical, role-specific AI literacy modules"
+      ]
+    },
+    "roadmap": {
+      "heading": "AI regulation as roadmap, not roadblock",
+      "description": "The AI Act is not a slowdown. It's a framework that shows how to scale AI safely. With the right support, you don't need to delay — you reduce mistakes and speed up implementation."
+    },
+    "scan": {
+      "heading": "Free AI Scan: know where you stand",
+      "description": "We offer a free AI Scan that:",
+      "items": [
+        "maps your current AI use",
+        "highlights relevant risks and obligations",
+        "and shows how to become compliant without extra technical hurdles"
+      ],
+      "noSales": "The scan is free of charge and without any sales push. Just clarity.",
+      "primaryCta": "Start your free AI Scan",
+      "secondaryCta": "Book a short intro call"
+    }
+  },
+  "caseStudies": {
+    "hero": {
+      "badge": "Success Stories",
+      "heading": "AI Automation That Actually Works",
+      "description": "See how other companies are working smarter—not over years, but within days. We build GPT solutions that connect to your processes. No demo tools, but systems that deliver value today."
+    },
+    "features": {
+      "title": "What to Expect",
+      "items": [
+        {
+          "title": "Tailored to You",
+          "description": "Every automation connects to how you really work. No standard solutions, no noise."
+        },
+        {
+          "title": "Lightning Fast Deployment",
+          "description": "From idea to working flow in 2 hours. Sometimes faster. No waiting, no roadmap hassle."
+        },
+        {
+          "title": "Results You Notice",
+          "description": "Less error-prone. More oversight. Time savings from day one."
+        }
+      ]
+    },
+    "caseStudies": [
+      {
+        "companyName": "Kindergarten Ikke",
+        "clientName": "Bob",
+        "description": "A GPT that allows each employee to write pedagogical activities in the Reggio Emilia style—the core vision of the organization.",
+        "clientQuote": "Keyholders saves us time, but more importantly: it has enriched our way of working. And yes, I use it for my emails too. But that's off the record."
+      },
+      {
+        "companyName": "SDE Consultancy",
+        "clientName": "Sandra",
+        "description": "A GPT that summarizes the most important cybersecurity news every morning. Customized to fit her tone. During the first session, we built the brand identity, tone of voice, and the entire automation.",
+        "clientQuote": "I don't know how much time Christian has saved me. Just that it's a lot. And I love numbers, so that's saying something."
+      },
+      {
+        "companyName": "Upbeatles PubQuiz",
+        "clientName": "Pascal",
+        "description": "A GPT that works with Canva. Automatically creating a new pub quiz every day—ready to use.",
+        "clientQuote": "I sent an email. Two hours later I had a link to a working GPT. What used to take 90 minutes per day is now handled in seconds. Incredible."
+      },
+      {
+        "companyName": "Fokker V.O.F.",
+        "clientName": "Ashra", 
+        "description": "Ashra dictates his quotes via WhatsApp. GPT analyzes the message, pulls the right prices from the database, drafts the proposal in Fokker style, and puts it in his inbox.",
+        "clientQuote": "I just asked: what can you build? And it grew into a fully automated process. Everything works. I recommend anyone who wants to speed up processes to do that free AI scan."
+      }
+    ],
+    "conclusion": {
+      "heading": "Automation Without Complexity",
+      "description": "The companies above aren't tech companies. They just want to work faster, better, more consistently. We make that possible, with AI solutions that fit your culture and your processes.",
+      "benefits": [
+        "Less manual work",
+        "Better throughput times",
+        "Safe, transparent AI integration",
+        "Solutions that remain understandable",
+        "Support when you need it"
+      ],
+      "stats": {
+        "taskCompletion": {
+          "value": "90%",
+          "label": "faster task completion"
+        },
+        "errors": {
+          "value": "75%",
+          "label": "fewer manual errors"
+        }
+      }
+    },
+    "cta": {
+      "heading": "Ready to work smarter?",
+      "description": "Request the free AI scan. Then we'll look together at how you can accelerate, without detours, without pressure.",
+      "primaryCta": "Start with the AI scan",
+      "secondaryCta": "Schedule a free consultation",
+      "tertiaryLink": "Learn more about the regulations?",
+      "caseStudyLink": "Curious how this would look for your organization?"
+    }
+  },
+  "footer": {
+    "copyright": "© 2024 Keyholders Agency. All rights reserved."
+  }
+} 

@@ -3,11 +3,60 @@
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowRight, ExternalLink, Star } from "lucide-react";
+import { ChevronRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
+import { useI18n } from "@/app/i18n/context";
+import { motion, useInView } from 'motion/react';
+
+// Update the border style to ensure it maintains the pill shape
+
+// Update the CSS for the border glimmer effect
+const borderGlimmerStyle = `
+  .cta-button::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 2px solid transparent;
+    border-radius: 9999px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+  }
+  
+  .cta-button:hover::before {
+    opacity: 1;
+  }
+  
+  /* Ensure the button itself has proper border-radius */
+  .cta-button {
+    position: relative;
+    border-radius: 9999px !important;
+  }
+  
+  /* Styles for the Prosper icon shadow effect */
+  .prosper-shadow {
+    opacity: 0;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 0px rgba(0, 0, 0, 0));
+  }
+  
+  .prosper-icon:hover .prosper-shadow {
+    opacity: 0; /* Still invisible on regular hover */
+  }
+  
+  /* Add hover effect for regular icons */
+  .integration-icon:not(.prosper-icon):hover img {
+    opacity: 1 !important;
+    transition: opacity 0.3s ease;
+  }
+`;
 
 // Register GSAP plugins
 if (typeof window !== "undefined") {
@@ -15,351 +64,532 @@ if (typeof window !== "undefined") {
 }
 
 export default function HeroSection() {
+  const { dictionary, language } = useI18n();
+  
+  // References for animation targets
   const sectionRef = useRef<HTMLElement>(null);
-  const badgeRef = useRef<HTMLDivElement>(null);
-  const headingRef = useRef<HTMLHeadingElement>(null);
-  const subheadingRef = useRef<HTMLDivElement>(null);
-  const descriptionRef = useRef<HTMLParagraphElement>(null);
-  const ctaRef = useRef<HTMLDivElement>(null);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const taglineRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
-  const particlesRef = useRef<HTMLDivElement>(null);
-  const cursorTrailerRef = useRef<HTMLDivElement>(null);
+  const spotlightRef = useRef<HTMLDivElement>(null);
+  
+  // Mouse position state
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState<string | null>(null);
-  const [currentTextState, setCurrentTextState] = useState(0);
-  const textStates = [
-    { highlight: "Spot issues faster", description: "Our automation solutions highlight inefficiencies in real-time" },
-    { highlight: "Convert more leads", description: "Intelligent workflows that nurture prospects through each stage" },
-    { highlight: "Scale operations", description: "Systems that grow with your business without adding overhead" },
+  
+  // Integration icons to replace red crosses
+  const integrationIcons = [
+    // Top row
+    { src: "/icons/wordpress.svg", alt: "WordPress", size: 50, position: { top: "16%", left: "8%" } },
+    { src: "/icons/twitter.svg", alt: "Twitter", size: 40, position: { top: "10%", left: "25%" } },
+    { src: "/icons/gmail.svg", alt: "Gmail", size: 60, position: { top: "9%", right: "17%" } },
+    { src: "/icons/stripe-trigger.svg", alt: "Stripe", size: 100, position: { top: "30%", right: "15%" } },
+    { src: "/icons/hubspot.svg", alt: "HubSpot", size: 50, position: { top: "8%", right: "5%" } },
+    
+    // Middle row - left side
+    { src: "/icons/telegram.svg", alt: "Telegram", size: 56, position: { top: "57%", left: "38%" }, className: "telegram-icon" },
+    { src: "/icons/salesforce.svg", alt: "Salesforce", size: 0, position: { top: "35%", left: "2%" } },
+    { src: "/icons/slack.svg", alt: "Slack", size: 60, position: { top: "38%", left: "18%" } },
+    { src: "/icons/notion.svg", alt: "Notion", size: 60, position: { top: "52%", left: "5%" } },
+    
+    // Middle row - right side
+    { src: "/icons/google-analytics.svg", alt: "Google Analytics", size: 50, position: { top: "85%", right: "93%" } },
+    { src: "/icons/discord.svg", alt: "Discord", size: 60, position: { top: "40%", right: "3%" } },
+    { src: "/icons/intercom.svg", alt: "Intercom", size: 50, position: { top: "50%", right: "30%" } },
+    { src: "/icons/whatsapp-business-cloud.svg", alt: "WhatsApp", size: 65, position: { top: "14%", right: "27%" } },
+    
+    // Bottom row
+    { src: "/icons/n8n.png", alt: "n8n", size: 200, position: { bottom: "0%", left: "35.5%" } },
+    { src: "/icons/google_ai_studio_gemini_e157b42786.png", alt: "Google AI", size: 60, position: { bottom: "28%", left: "21%" } },
+    { src: "/icons/openailogo.png", alt: "OpenAI", size: 160, position: { bottom: "2.8%", right: "38%" } },
+    { src: "/icons/shopify.svg", alt: "Shopify", size: 80, position: { bottom: "13%", right: "10%" } },
+    { src: "/icons/microsoft-teams.svg", alt: "Microsoft Teams", size: 60, position: { bottom: "33%", left: "80%" } },
+    { src: "/icons/trello.svg", alt: "Trello", size: 50, position: { bottom: "22%", right: "2%" } },
+    { src: "/icons/prosper.png", alt: "Prosper", size: 50, position: { bottom: "10%", right: "25%" }, className: "prosper-icon", spotlight: true },
   ];
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Initialize animations
+  // Content data for stats cards
+  const statsData = language === "nl" ? [
+    {
+      value: "63%",
+      label: "Verbeterde efficiëntie",
+      color: "text-blue-400"
+    },
+    {
+      value: "12x",
+      label: "Hogere conversies",
+      color: "text-blue-400"
+    },
+    {
+      value: "24/7",
+      label: "Automatische werking",
+      color: "text-blue-400"
+    }
+  ] : [
+    {
+      value: "63%",
+      label: "Improved efficiency",
+      color: "text-blue-400"
+    },
+    {
+      value: "12x",
+      label: "Higher conversions",
+      color: "text-blue-400"
+    },
+    {
+      value: "24/7",
+      label: "Automatic operation",
+      color: "text-blue-400"
+    }
+  ];
+
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
   useEffect(() => {
     if (typeof window === "undefined") return;
     
-    // Main timeline for staggered animations on load
-    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-    
-    tl.fromTo(badgeRef.current, 
-      { opacity: 0, y: 20 }, 
-      { opacity: 1, y: 0, duration: 0.6 }
-    ).fromTo(headingRef.current,
-      { opacity: 0, y: 50 },
-      { opacity: 1, y: 0, duration: 0.8 }
-    ).fromTo(subheadingRef.current,
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 0.6 }
-    , "-=0.4").fromTo(descriptionRef.current,
-      { opacity: 0 },
-      { opacity: 1, duration: 0.6 }
-    , "-=0.3").fromTo(ctaRef.current,
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.6 }
-    , "-=0.3").fromTo(statsRef.current,
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 0.8 }
-    , "-=0.4");
-    
-    // Floating particles animation
-    const particles = particlesRef.current?.querySelectorAll('.particle');
-    if (particles) {
-      particles.forEach((particle) => {
-        gsap.to(particle, {
-          y: "random(-20, 20)",
-          x: "random(-20, 20)",
-          rotation: "random(-15, 15)",
-          duration: "random(3, 6)",
-          ease: "sine.inOut",
-          repeat: -1,
-          yoyo: true
-        });
-      });
-    }
-    
-    // Spotlight text effect
-    gsap.fromTo(".spotlight-text",
-      { backgroundSize: "0% 40%" },
-      { 
-        backgroundSize: "100% 40%", 
-        duration: 1.2, 
-        delay: 1.2,
-        ease: "power2.out"
+    // Mouse spotlight effect
+    const handleMouseMove = (e: MouseEvent) => {
+      // Direct manipulation without using React state at all
+      const spotlight = spotlightRef.current;
+      if (spotlight) {
+        // Use pageX/pageY instead of clientX/clientY for absolute positioning
+        spotlight.style.left = `${e.pageX}px`;
+        spotlight.style.top = `${e.pageY}px`;
+        
+        // Check if the cursor is over the CTA button
+        const ctaButton = document.querySelector('.cta-button');
+        if (ctaButton) {
+          const buttonRect = ctaButton.getBoundingClientRect();
+          const isOverButton = 
+            e.clientX >= buttonRect.left && 
+            e.clientX <= buttonRect.right && 
+            e.clientY >= buttonRect.top && 
+            e.clientY <= buttonRect.bottom;
+          
+          // Change z-index based on whether the cursor is over the button
+          spotlight.style.zIndex = isOverButton ? '30' : '1';
+          
+          // Add new code for the dynamic border glimmer effect
+          if (isOverButton) {
+            // Calculate the position of the cursor relative to the button
+            const relativeX = (e.clientX - buttonRect.left) / buttonRect.width;
+            const relativeY = (e.clientY - buttonRect.top) / buttonRect.height;
+            
+            // Determine which side of the button the cursor is closest to
+            // This helps create a more natural light reflection effect
+            let gradientAngle = 0;
+            let gradientPos = 0;
+            
+            // Find closest edge by comparing distances
+            const distToLeft = relativeX;
+            const distToRight = 1 - relativeX;
+            const distToTop = relativeY;
+            const distToBottom = 1 - relativeY;
+            
+            // Find minimum distance to determine closest edge
+            const minDist = Math.min(distToLeft, distToRight, distToTop, distToBottom);
+            
+            if (minDist === distToLeft) {
+              // Closest to left edge
+              gradientAngle = 90;
+              gradientPos = relativeY * 100;
+            } else if (minDist === distToRight) {
+              // Closest to right edge
+              gradientAngle = 270;
+              gradientPos = relativeY * 100;
+            } else if (minDist === distToTop) {
+              // Closest to top edge
+              gradientAngle = 180;
+              gradientPos = relativeX * 100;
+            } else {
+              // Closest to bottom edge
+              gradientAngle = 0;
+              gradientPos = relativeX * 100;
+            }
+            
+            // Apply a simple light glow effect at cursor position
+            const shadowColor = `rgba(255, 255, 255, 0.8)`;
+            const shadowSize = 5;
+            const glowSize = 15;
+            
+            // Create glow that follows cursor position
+            const glowX = (relativeX - 0.5) * 2 * 20; // -20px to +20px horizontal offset
+            const glowY = (relativeY - 0.5) * 2 * 20; // -20px to +20px vertical offset
+            
+            // Use a spread of styles to ensure the glow follows the rounded shape
+            (ctaButton as HTMLElement).style.boxShadow = `0 0 ${glowSize}px ${shadowColor}`;
+            (ctaButton as HTMLElement).style.borderColor = shadowColor;
+            (ctaButton as HTMLElement).style.borderWidth = '2px';
+            (ctaButton as HTMLElement).style.borderStyle = 'solid';
+          } else {
+            // Reset the effects when not hovering
+            (ctaButton as HTMLElement).style.boxShadow = '';
+            (ctaButton as HTMLElement).style.borderColor = 'transparent';
+          }
+        }
       }
+      
+      // Dynamic shadow effect for the headline
+      if (headlineRef.current) {
+        const headingRect = headlineRef.current.getBoundingClientRect();
+        const headingCenterX = headingRect.left + headingRect.width / 2;
+        const headingCenterY = headingRect.top + headingRect.height / 2;
+        
+        // Calculate vector from mouse to heading center
+        const vectorX = e.clientX - headingCenterX;
+        const vectorY = e.clientY - headingCenterY;
+        
+        // Normalize and scale for shadow offset (inverted to create natural shadow)
+        const distance = Math.sqrt(vectorX * vectorX + vectorY * vectorY);
+        const maxDistance = 300; // Max distance to consider for shadow effect
+        const shadowIntensity = Math.min(1, distance / maxDistance);
+        
+        // Apply realistic shadow projection effect
+        const maxOffset = 25; // Increased for more dramatic shadow offset
+        // Handle potential NaN by checking if distance is too small
+        let shadowX = 0;
+        let shadowY = 0;
+        
+        if (distance > 0.1) { // Avoid division by very small numbers
+          shadowX = -vectorX / distance * shadowIntensity * maxOffset;
+          shadowY = -vectorY / distance * shadowIntensity * maxOffset;
+        }
+        
+        // Apply dynamic text shadow - projection shadow effect
+        gsap.to(headlineRef.current, {
+          textShadow: `${shadowX}px ${shadowY}px 3px rgba(0, 0, 0, 0.9)`,
+          duration: 0.2
+        });
+      }
+      
+      // Highlight icons when the spotlight is near them
+      const iconEls = document.querySelectorAll('.integration-icon');
+      iconEls.forEach((icon) => {
+        const rect = icon.getBoundingClientRect();
+        const iconCenterX = rect.left + rect.width / 2;
+        const iconCenterY = rect.top + rect.height / 2;
+        
+        // Calculate distance between mouse and icon center
+        const distanceX = e.clientX - iconCenterX;
+        const distanceY = e.clientY - iconCenterY;
+        const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+        
+        // Spotlight radius (adjust as needed)
+        const spotlightRadius = 200;
+        
+        // Calculate spotlight intensity based on distance
+        const intensity = Math.max(0, 1 - distance / spotlightRadius);
+        
+        // Apply simple brightness effect to the image (no drop-shadow)
+        const iconImage = icon.querySelector('img');
+        
+        // Special handling for Prosper icon - only visible under spotlight
+        if (icon.classList.contains('prosper-icon') && iconImage) {
+          if (intensity > 0) {
+            // Make only the shadow visible when spotlight hits it
+            gsap.to(iconImage, {
+              opacity: intensity * 0.8, // More intense spotlight = more visible
+              filter: `brightness(0) drop-shadow(0 0 ${intensity * 8}px rgba(0, 0, 0, ${intensity * 0.9}))`, 
+              duration: 0.3
+            });
+          } else {
+            // Keep invisible when spotlight is not on it
+            gsap.to(iconImage, {
+              opacity: 0,
+              filter: "brightness(0) drop-shadow(0 0 0px rgba(0, 0, 0, 0))",
+              duration: 0.3
+            });
+          }
+        } 
+        // Regular handling for other icons
+        else if (iconImage && intensity > 0) {
+          gsap.to(iconImage, {
+            scale: 1 + (intensity * 0.12),
+            filter: `brightness(${1 + intensity * 0.3})`,
+            duration: 0.2
+          });
+        } else if (iconImage) {
+          gsap.to(iconImage, {
+            scale: 1,
+            filter: "brightness(1)",
+            duration: 0.3
+          });
+        }
+      });
+    };
+    
+    // Add mouse move event listener
+    window.addEventListener('mousemove', handleMouseMove);
+    
+    // Enhanced floating icons animation
+    const iconEls = document.querySelectorAll('.integration-icon');
+    iconEls.forEach((icon, index) => {
+      // Initial state with slight offset
+      gsap.set(icon, { 
+        opacity: 0,
+        rotation: "random(-4, 4)",
+        y: "random(-5, 5)",
+        x: "random(-5, 5)"
+      });
+      
+      // Fade in animation with scale effect
+      gsap.to(icon, {
+        opacity: 1,
+        scale: 1,
+        duration: 1.5,
+        delay: index * 0.1 + Math.random() * 0.5,
+        ease: "power2.out"
+      });
+      
+      // Get icon size to determine animation range
+      const iconSize = parseInt((icon as HTMLElement).style.width || '50');
+      const isLargeIcon = iconSize > 60;
+      const floatRange = isLargeIcon ? 8 : 16; // Smaller movement for larger icons
+      
+      // Primary floating animation - larger vertical movement
+      gsap.to(icon, {
+        y: `random(-${floatRange}, ${floatRange})`,
+        duration: "random(8, 14)",
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: Math.random() * 2
+      });
+      
+      // Secondary floating animation - smaller horizontal movement on different timeline
+      gsap.to(icon, {
+        x: `random(-${floatRange * 0.7}, ${floatRange * 0.7})`,
+        duration: "random(7, 12)",
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: Math.random() * 2
+      });
+      
+      // Subtle rotation animation
+      gsap.to(icon, {
+        rotation: "random(-6, 6)",
+        duration: "random(12, 20)",
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: Math.random() * 2
+      });
+      
+      // Subtle scale breathing
+      gsap.to(icon, {
+        scale: "random(0.95, 1.05)",
+        duration: "random(6, 10)",
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: Math.random() * 2
+      });
+    });
+    
+    // Main content animations
+    const timeline = gsap.timeline({ defaults: { ease: "power2.out" } });
+    
+    // Trust badge animation
+    timeline.fromTo(".hero-badge",
+      { y: -15, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.6 },
+      0.3
     );
     
-    // Cycle through text states
-    startTextCycle();
+    // Main headline animation
+    if (headlineRef.current) {
+      timeline.fromTo(headlineRef.current,
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8 },
+        0.5
+      );
+    }
+    
+    // Tagline animation
+    if (taglineRef.current) {
+      timeline.fromTo(taglineRef.current,
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.7 },
+        0.8
+      );
+    }
+    
+    // CTA buttons animation
+    timeline.fromTo(".cta-group",
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.6 },
+      1.0
+    );
+    
+    // Stats cards animation
+    timeline.fromTo(".stat-card",
+      { y: 20, opacity: 0 },
+      { 
+        y: 0, 
+        opacity: 1, 
+        duration: 0.6,
+        stagger: 0.15
+      },
+      1.2
+    );
     
     return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
+      // Cleanup
+      gsap.killTweensOf('.integration-icon');
+      if (headlineRef.current) {
+        gsap.killTweensOf(headlineRef.current);
       }
+      window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
-  
-  // Function to handle text state cycling
-  const startTextCycle = () => {
-    timeoutRef.current = setTimeout(() => {
-      setCurrentTextState((prev) => (prev + 1) % textStates.length);
-      
-      // Animate the text change
-      gsap.fromTo(".state-text",
-        { opacity: 0, y: 10 },
-        { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }
-      );
-      
-      gsap.fromTo(".spotlight-text",
-        { backgroundSize: "0% 40%" },
-        { 
-          backgroundSize: "100% 40%", 
-          duration: 1.2,
-          ease: "power2.out"
-        }
-      );
-      
-      startTextCycle();
-    }, 5000);
-  };
-  
-  // Mouse movement effects
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-      setMousePosition({ x: clientX, y: clientY });
-      
-      // Move cursor trailer with a slight delay
-      if (cursorTrailerRef.current) {
-        gsap.to(cursorTrailerRef.current, {
-          x: clientX,
-          y: clientY,
-          duration: 0.5,
-          ease: "power2.out"
-        });
-      }
-    };
-    
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-  
-  // Button hover effects
-  const handleButtonHover = (id: string) => {
-    setIsHovering(id);
-    
-    if (id === "main-cta") {
-      gsap.to(".cta-light", {
-        opacity: 0.8,
-        scale: 1.4,
-        duration: 0.4,
-        ease: "power2.out"
-      });
-      
-      gsap.to(".cta-glow", {
-        opacity: 1,
-        duration: 0.4,
-        ease: "power2.out"
-      });
-    }
-    
-    if (id === "success-link") {
-      gsap.to(".success-light", {
-        opacity: 0.8,
-        scale: 1.4,
-        duration: 0.4,
-        ease: "power2.out"
-      });
-    }
-  };
-  
-  const handleButtonLeave = (id: string) => {
-    setIsHovering(null);
-    
-    if (id === "main-cta") {
-      gsap.to(".cta-light", {
-        opacity: 0.4,
-        scale: 1,
-        duration: 0.4,
-        ease: "power2.out"
-      });
-      
-      gsap.to(".cta-glow", {
-        opacity: 0.3,
-        duration: 0.4,
-        ease: "power2.out"
-      });
-    }
-    
-    if (id === "success-link") {
-      gsap.to(".success-light", {
-        opacity: 0.3,
-        scale: 1,
-        duration: 0.4,
-        ease: "power2.out"
-      });
-    }
-  };
 
   return (
     <section
       ref={sectionRef}
-      className="relative pt-14 pb-20 overflow-hidden min-h-[90vh] flex items-center"
+      className="relative min-h-[90vh] w-full flex items-center justify-center overflow-hidden pt-16 pb-24 cursor-default"
     >
-      {/* Background Elements */}
-      <div className="absolute inset-0 -z-20 bg-[#0a0a0f]">
-        {/* Grid pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(111,76,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(111,76,255,0.05)_1px,transparent_1px)] bg-[size:70px_70px]"></div>
-        
-        {/* Animated gradients */}
-        <div className="absolute top-1/4 -right-64 w-[800px] h-[800px] rounded-full bg-purple-600/10 blur-[150px] animate-pulse-slow"></div>
-        <div className="absolute -bottom-32 left-1/4 w-[600px] h-[600px] rounded-full bg-blue-600/10 blur-[150px] animate-pulse-slow delay-1000"></div>
-      </div>
+      {/* Pure black background */}
+      <div className="absolute inset-0 -z-10 bg-black"></div>
       
-      {/* Floating particles */}
+      {/* Mouse spotlight effect */}
       <div 
-        ref={particlesRef}
-        className="absolute inset-0 overflow-hidden pointer-events-none"
-      >
-        <div className="particle absolute top-[15%] left-[10%] w-1 h-1 bg-purple-400 rounded-full opacity-60"></div>
-        <div className="particle absolute top-[25%] right-[20%] w-2 h-2 bg-blue-400 rounded-full opacity-40"></div>
-        <div className="particle absolute bottom-[30%] left-[15%] w-2 h-2 bg-indigo-400 rounded-full opacity-50"></div>
-        <div className="particle absolute bottom-[20%] right-[25%] w-1 h-1 bg-purple-400 rounded-full opacity-60"></div>
-        <div className="particle absolute top-[40%] left-[30%] w-1.5 h-1.5 bg-blue-400 rounded-full opacity-30"></div>
-        <div className="particle absolute top-[45%] right-[40%] w-1 h-1 bg-indigo-400 rounded-full opacity-40"></div>
-        <div className="particle absolute bottom-[40%] left-[20%] w-1 h-1 bg-blue-300 rounded-full opacity-50"></div>
-        <div className="particle absolute bottom-[45%] right-[15%] w-2 h-2 bg-purple-300 rounded-full opacity-30"></div>
-        <div className="particle absolute top-[60%] left-[40%] w-1.5 h-1.5 bg-indigo-300 rounded-full opacity-40"></div>
-      </div>
-
-      {/* Top gradient line */}
-      <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent opacity-30"></div>
-      
-      {/* Cursor effects */}
-      <div 
-        ref={cursorTrailerRef}
-        className="fixed w-[350px] h-[350px] rounded-full pointer-events-none z-10 opacity-20 will-change-transform"
+        ref={spotlightRef}
+        className="fixed pointer-events-none w-[400px] h-[400px] rounded-full"
         style={{
-          background: 'radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%)',
-          transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`,
-          left: '-175px',
-          top: '-175px'
+          background: 'radial-gradient(circle, rgba(138, 75, 175, 0.35) 0%, rgba(91, 50, 130, 0.2) 35%, rgba(0, 0, 0, 0) 70%)',
+          position: 'absolute',
+          left: 0,
+          top: 0,
+          transform: 'translate(-50%, -50%)',
+          mixBlendMode: 'screen',
+          zIndex: 1, // Default z-index
         }}
       ></div>
       
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-5xl mx-auto">
-          {/* Hero Content */}
-          <div className="mb-12 pt-12">
-            <h1 
-              ref={headingRef}
-              className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight"
-            >
-              Unlock Business Growth Through
-              <span className="relative">
-                <span className="relative z-10"> Intelligent </span>
-                <div className="absolute -inset-1 -z-0 opacity-30 blur-lg rounded-full bg-gradient-to-r from-purple-600 to-blue-600"></div>
-              </span> Automation
-            </h1>
-            
-            <div 
-              ref={subheadingRef}
-              className="flex flex-col sm:flex-row sm:items-center gap-6 mb-8"
-            >
-              <div 
-                className="flex-1 bg-gradient-to-br from-[#0c0c18] to-[#13131f] p-6 rounded-xl border border-white/5 relative overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-600/10 to-blue-600/10 opacity-20"></div>
-                
-                <div className="state-text">
-                  <h2 className="text-2xl font-bold text-white mb-2">
-                    <span className="spotlight-text relative bg-gradient-to-r from-purple-400 to-blue-400 bg-no-repeat bg-left-bottom">
-                      {textStates[currentTextState].highlight}
-                    </span>
-                  </h2>
-                  <p className="text-gray-400">
-                    {textStates[currentTextState].description}
-                  </p>
-                </div>
+      {/* Integration icons - placed where red crosses were in the reference */}
+      {integrationIcons.map((icon, index) => (
+        <div 
+          key={`icon-${index}`}
+          className={`integration-icon absolute z-10 transition-shadow hidden md:block ${icon.className || ''}`}
+          style={{
+            ...icon.position,
+            width: `${icon.size}px`,
+            height: `${icon.size}px`,
+          }}
+        >
+          <Image
+            src={icon.src}
+            alt={icon.alt}
+            width={icon.size}
+            height={icon.size}
+            className={`w-full h-full object-contain ${
+              icon.alt === "Telegram" ? "hover:rotate-[20deg] transition-transform duration-200" :
+              icon.alt === "Prosper" ? "prosper-shadow transition-all duration-300" :
+              "transition-all duration-300"
+            }`}
+            style={{
+              transformOrigin: 'center',
+              ...(icon.alt === "Prosper" ? {
+                filter: "brightness(0) blur(0px) opacity(0)",
+                opacity: 0,
+              } : {
+                opacity: 0.65, // Reduced from 0.8 to 0.65 (15% reduction)
+              })
+            }}
+          />
+        </div>
+      ))}
+      
+      <div ref={ref} className="container mx-auto px-4 max-w-5xl z-20 cursor-default">
+        <div className="flex flex-col items-center text-center">
+          {/* Trust badge */}
+          <div className="mb-4">
+            <Badge variant="glow" size="lg" className="hero-badge py-1.5 px-4 cursor-default">
+              <div className="flex items-center gap-2">
+                <span className="text-s font-large">
+                  {language === "nl" ? "Automatiseren kun je leren!" : "You can learn to automate!"}
+                </span>
               </div>
-            </div>
-            
-            <p 
-              ref={descriptionRef}
-              className="text-xl text-gray-300 max-w-3xl mb-10"
-            >
-              Our bespoke RevOps solutions connect your entire tech stack to eliminate silos, reduce manual tasks, and accelerate your business performance.
-            </p>
-
-        {/* CTA Buttons */}
-            <div 
-              ref={ctaRef}
-              className="flex flex-wrap gap-6 items-center"
-            >
-              <div className="relative">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full opacity-70 blur-sm cta-glow"></div>
-                <a 
-                  href="/ai-scan"
-                  rel="noopener noreferrer"
-                >
-                  <Button
-                    size="lg"
-                    className="relative bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-full px-8 py-6 h-auto text-lg font-medium hover:shadow-lg hover:shadow-purple-500/20 transition-shadow group"
-                    onMouseEnter={() => handleButtonHover("main-cta")}
-                    onMouseLeave={() => handleButtonLeave("main-cta")}
-                  >
-                    <span className="mr-2">Do the AI Scan!</span>
-                    <div className="relative">
-                      <div className="absolute inset-0 bg-white rounded-full opacity-40 cta-light"></div>
-                      <ArrowRight className="h-5 w-5 group-hover:translate-x-0.5 transition-transform" />
-                    </div>
-                  </Button>
-                </a>
-              </div>
-
-          <Link
-                href="/case-studies" 
-                className="text-white/80 hover:text-white flex items-center gap-2 group"
-              >
-                <span>View case studies</span>
-                <ExternalLink className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
-          </Link>
-            </div>
+            </Badge>
           </div>
           
-          {/* Stats */}
-          <div 
-            ref={statsRef}
-            className="grid grid-cols-1 sm:grid-cols-3 gap-6"
+          {/* Main headline - WEAREKEYHOLDERS */}
+          <h1
+            className="text-5xl md:text-7xl lg:text-7xl font-bold text-white mb-6 tracking-tight uppercase cursor-default relative"
+            style={{ 
+              textShadow: '5px 5px 3px rgba(0, 0, 0, 0.75)',
+              transition: 'text-shadow 0.2s ease-out'
+            }}
+            ref={headlineRef}
           >
-            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/5 hover:border-purple-500/20 transition-colors group relative overflow-hidden">
-              {/* Hover effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-600/10 to-transparent opacity-0 group-hover:opacity-30 transition-opacity"></div>
-              
-              <div className="relative z-10">
-                <div className="text-3xl md:text-4xl font-bold text-white mb-2">85%</div>
-                <div className="text-gray-400">Time saved on manual data entry tasks</div>
-              </div>
-            </div>
+            We Are Keyholders
+          </h1>
+          
+          {/* Tagline */}
+          <div
+            ref={taglineRef}
+            className="text-xl md:text-2xl lg:text-3xl font-medium text-white/90 mb-12 cursor-default"
+          >
+            {language === "nl" ? (
+              <>
+                Wij automatiseren je werkdag door <br />
+                AI en software aan elkaar te verbinden
+              </>
+            ) : (
+              <>
+                We automate your workday by <br />
+                connecting AI and software together
+              </>
+            )}
+          </div>
+          
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="cta-group flex flex-row gap-5 items-center justify-center mb-20"
+          >
+            <Link
+              href={language === "nl" ? "/ai-scan" : "/en/ai-scan"}
+              className="relative z-20"
+            >
+              <Button 
+                size="lg" 
+                className="cta-button rounded-full bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-6 h-auto text-base relative group"
+                style={{
+                  position: 'relative',
+                  overflow: 'visible',
+                  transition: 'all 0.3s ease',
+                  border: '2px solid transparent',
+                  borderRadius: '9999px',
+                }}
+              >
+                {/* Border glimmer effect - only visible on hover */}
+                <style jsx global>{borderGlimmerStyle}</style>
+                <span className="mr-2 relative z-10">
+                  {language === "nl" ? "Ja, ik wil een gratis AI consult!" : "Yes, I want a free AI consultation!"}
+                </span>
+                <ChevronRight className="h-4 w-4 relative z-10" />
+              </Button>
+            </Link>
+          </motion.div>
             
-            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/5 hover:border-blue-500/20 transition-colors group relative overflow-hidden">
-              {/* Hover effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-transparent opacity-0 group-hover:opacity-30 transition-opacity"></div>
-              
-              <div className="relative z-10">
-                <div className="text-3xl md:text-4xl font-bold text-white mb-2">42%</div>
-                <div className="text-gray-400">Average increase in lead conversion rates</div>
+          {/* Stats cards */}
+          <div ref={statsRef} className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl mx-auto">
+            {statsData.map((stat, index) => (
+              <div 
+                key={index}
+                className="stat-card border border-white/10 bg-black/50 rounded-lg p-6 flex flex-col items-center cursor-default"
+              >
+                <div className={`text-3xl md:text-4xl font-bold mb-2 ${stat.color} cursor-default`}>
+                  {stat.value}
+                  </div>
+                <div className="text-gray-300 font-medium cursor-default">{stat.label}</div>
               </div>
-            </div>
-            
-            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/5 hover:border-indigo-500/20 transition-colors group relative overflow-hidden">
-              {/* Hover effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/10 to-transparent opacity-0 group-hover:opacity-30 transition-opacity"></div>
-              
-              <div className="relative z-10">
-                <div className="text-3xl md:text-4xl font-bold text-white mb-2">24/7</div>
-                <div className="text-gray-400">Automation systems that never sleep</div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

@@ -35,7 +35,7 @@ export default function Footer() {
                             <span className="font-medium text-white">Keyholders Agency</span>
                         </Link>
                         <p className="text-gray-400 mb-6">
-                            We are Keyholders with expertise in RevOps, Growth, Business Development, and building automations for your repetitive daily tasks.
+                        Wij zijn Keyholders – jouw slimme partner in RevOps, groei en Business Development, die al je routinetaken met AI automatiseert zodat jij kunt doen waar je écht blij van wordt.
                         </p>
                         <div className="flex gap-4 mb-8">
                             <Link href="https://www.linkedin.com/in/cbleeker/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
@@ -50,6 +50,7 @@ export default function Footer() {
                             <p className="mb-1">Stationsplein 26</p>
                             <p className="mb-1">6512 AB</p>
                             <p>Nijmegen, The Netherlands</p>
+                            <p>Kvk : 97026212 </p>
                         </div>
                     </div>
 

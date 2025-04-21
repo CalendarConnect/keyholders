@@ -1,9 +1,11 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Code, Bot, Sparkles } from "lucide-react";
+import Link from "next/link";
+import { useI18n } from "@/app/i18n/context";
 import CaseStudyCard from "./case-study-card";
 
 // Register GSAP plugins
@@ -11,88 +13,144 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-// Define case studies data
-const caseStudies = [
-  {
-    companyName: "Kindergarten Ikke",
-    clientName: "Bob",
-    clientImage: "/images/case-studies/bob.jpg",
-    companyUrl: "https://kinderopvangikke.nl/",
-    description: "A custom GPT that enables all employees to create and write pedagogical activities with expertise in the pedagogical approach of Reggio Emilia which is the cornerstone of the kindergarten.",
-    clientQuote: "Keyholders helped us not only save time, but it expands our creativity and our approach to the pedagogical approach of Reggio Emilia. And I use the GPT to write my emails, but that&apos;s a little secret.",
-  },
-  {
-    companyName: "SDE Consultancy Cyber Security",
-    clientName: "Sandra",
-    clientImage: "/images/case-studies/Sandra_SDE_COnsultancy.jpg",
-    companyUrl: "https://sdeconsultancy.nl/",
-    description: "A custom GPT that enables Sandra to always be automatically up to date regarding cyber security daily news, nicely summarized every day in her mailbox. During the discovery session with Christian, he created the SDE brand identity, tone of voice and the automation needed within 2 hours.",
-    clientQuote: "I can&apos;t calculate how much Christian with Keyholders has saved me in time, but it&apos;s a lot. And I love numbers and accuracy!",
-  },
-  {
-    companyName: "Upbeatles PubQuiz",
-    clientName: "Pascal",
-    clientImage: "/images/case-studies/Pascal.jpg",
-    companyUrl: "https://www.upbeatles.nl",
-    description: "A custom GPT that integrates with Canva so it automatically creates ready to use pub quizzes.",
-    clientQuote: "I met Chris at Startup Nijmegen, and Sandra referred me to his Keyholders Agency. 2 hours after I sent the mail, he sent me the link of the custom GPT I now use daily. I couldn&apos;t believe my eyes, what previously took me at least 90 minutes per day, is now done in a matter of seconds.",
-  },
-  {
-    companyName: "Fokker V.O.F Constructor",
-    clientName: "Ashra",
-    clientImage: "/images/case-studies/ashra.jpg",
-    companyUrl: "https://www.fokkervof.nl",
-    description: "For Fokker V.O.F we created a complete automation flow that enables Ashra to create custom offers by speaking in a voice memo in WhatsApp. This automatically is analyzed by ChatGPT which then uses the Fokker database which includes all calculation values of products to use and the current pricing. The automation then writes a complete offer in the branding of Fokker V.O.F and saves it as draft in the mailbox of Ashra, ready to be sent.",
-    clientQuote: "I heard about Christian through a friend of mine, and I just asked what he could build. What started with a custom GPT with our brand identity, tone of voice and company project knowledge, grew into a fully automated process. I highly recommend the free AI consult with Christian, his eye on automating processes is next level.",
-  },
-];
+interface Feature {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+}
+
+interface CaseStudy {
+  companyName: string;
+  clientName: string;
+  description: string;
+  clientQuote: string;
+}
 
 export default function CaseStudiesGrid() {
+  const { dictionary } = useI18n();
+  
+  // Add fallback for missing translations
+  const caseStudies = dictionary.caseStudies || {
+    features: {
+      title: "Our Case Studies",
+      items: []
+    },
+    caseStudies: [],
+    conclusion: {
+      heading: "The Keyholders Difference",
+      description: "Our approach focuses on creating custom solutions that precisely fit your business needs, not forcing you to adapt to off-the-shelf products.",
+      benefits: []
+    },
+    cta: {
+      heading: "Ready to transform your business?",
+      description: "Let's discuss how intelligent automation can solve your specific challenges and accelerate your growth.",
+      primaryCta: "Get your free AI scan",
+      secondaryCta: "Schedule a consultation",
+      tertiaryLink: "Learn about EU AI Act compliance",
+      caseStudyLink: "Read full case study"
+    }
+  };
+  
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const featureRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const conclusionRef = useRef<HTMLDivElement>(null);
+  const statsRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Animate heading
-      gsap.fromTo(
-        headingRef.current,
-        { opacity: 0, y: 30 },
-        { 
-          opacity: 1, 
-          y: 0, 
-          duration: 0.8,
-          scrollTrigger: {
-            trigger: headingRef.current,
-            start: "top bottom-=100",
-          }
-        }
-      );
-      
-      // Animate features
-      featureRefs.current.forEach((feature, index) => {
-        if (!feature) return;
-        
-        gsap.fromTo(
-          feature,
-          { opacity: 0, y: 30 },
-          { 
-            opacity: 1, 
-            y: 0, 
-            duration: 0.6,
-            delay: 0.1 * index,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: feature,
-              start: "top bottom-=50",
-            }
-          }
-        );
-      });
-    }, sectionRef);
+    if (typeof window === 'undefined') return;
     
-    return () => ctx.revert();
+    try {
+      const ctx = gsap.context(() => {
+        // Animate heading
+        if (headingRef.current) {
+          gsap.fromTo(
+            headingRef.current,
+            { opacity: 0, y: 30 },
+            { 
+              opacity: 1, 
+              y: 0, 
+              duration: 0.8,
+              scrollTrigger: {
+                trigger: headingRef.current,
+                start: "top bottom-=100",
+              }
+            }
+          );
+        }
+        
+        // Animate features
+        featureRefs.current.forEach((feature, index) => {
+          if (!feature) return;
+          
+          gsap.fromTo(
+            feature,
+            { opacity: 0, y: 30 },
+            { 
+              opacity: 1, 
+              y: 0, 
+              duration: 0.6,
+              delay: 0.1 * index,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: feature,
+                start: "top bottom-=50",
+              }
+            }
+          );
+        });
+        
+        // Animate conclusion
+        if (conclusionRef.current) {
+          gsap.fromTo(
+            conclusionRef.current,
+            { opacity: 0, y: 30 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              scrollTrigger: {
+                trigger: conclusionRef.current,
+                start: "top bottom-=100"
+              }
+            }
+          );
+        }
+        
+        // Animate stats
+        if (statsRef.current) {
+          gsap.fromTo(
+            statsRef.current.querySelectorAll('.stat-item'),
+            { opacity: 0, y: 20 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.6,
+              stagger: 0.2,
+              scrollTrigger: {
+                trigger: statsRef.current,
+                start: "top bottom-=50"
+              }
+            }
+          );
+        }
+      }, sectionRef);
+      
+      return () => ctx.revert();
+    } catch (error) {
+      console.error("Animation error:", error);
+    }
   }, []);
+  
+  // Create features array with fallback
+  const features: Feature[] = Array.isArray(caseStudies.features.items) ? 
+    caseStudies.features.items.map((item: any, index: number) => ({
+      icon: index === 0 ? <Code className="h-6 w-6" /> : 
+            index === 1 ? <Bot className="h-6 w-6" /> : 
+                          <Sparkles className="h-6 w-6" />,
+      title: item.title || "",
+      description: item.description || ""
+    })) : [];
   
   return (
     <section 
@@ -116,29 +174,13 @@ export default function CaseStudiesGrid() {
               ref={headingRef}
               className="text-3xl md:text-4xl font-bold text-white mb-12"
             >
-              See how we&apos;re transforming businesses
+              {caseStudies.features.title}
             </h2>
           </div>
           
           {/* Key features */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-            {[
-              {
-                icon: <Code className="h-6 w-6" />,
-                title: "Custom AI Solutions",
-                description: "Tailored AI automations built specifically for your business needs and workflows."
-              },
-              {
-                icon: <Bot className="h-6 w-6" />,
-                title: "Rapid Implementation",
-                description: "From concept to working solution in as little as 2 hours, not weeks or months."
-              },
-              {
-                icon: <Sparkles className="h-6 w-6" />,
-                title: "Measurable Results",
-                description: "Our clients see dramatic time savings and efficiency gains almost immediately."
-              }
-            ].map((feature, index) => (
+            {features.map((feature: Feature, index: number) => (
               <div
                 key={index}
                 ref={el => { featureRefs.current[index] = el; }}
@@ -154,19 +196,125 @@ export default function CaseStudiesGrid() {
           </div>
           
           {/* Case Studies */}
-          <div className="space-y-10">
-            {caseStudies.map((caseStudy, index) => (
-              <CaseStudyCard
-                key={index}
-                companyName={caseStudy.companyName}
-                clientName={caseStudy.clientName}
-                clientImage={caseStudy.clientImage}
-                companyUrl={caseStudy.companyUrl}
-                description={caseStudy.description}
-                clientQuote={caseStudy.clientQuote}
-                index={index}
-              />
-            ))}
+          <div className="space-y-8 mb-16">
+            {Array.isArray(caseStudies.caseStudies) && caseStudies.caseStudies.map((study: CaseStudy, index: number) => {
+              // Custom image handling for specific clients
+              let imagePath = `/images/case-studies/${study.clientName.toLowerCase().replace(/\s+/g, '-')}.jpg`;
+              
+              // Special cases for each client based on the client's text
+              if (study.clientName === "Bob") {
+                imagePath = "/images/case-studies/bob.jpg";
+              } else if (study.clientName === "Sandra" && study.companyName === "SDE Consultancy") {
+                imagePath = "/images/case-studies/Sandra_SDE_COnsultancy.jpg";
+              } else if (study.clientName === "Pascal") {
+                imagePath = "/images/case-studies/Pascal.jpg";
+              } else if (study.clientName === "Ashra") {
+                imagePath = "/images/case-studies/ashra.jpg";
+              }
+              
+              return (
+                <CaseStudyCard
+                  key={index}
+                  companyName={study.companyName}
+                  clientName={study.clientName}
+                  clientImage={imagePath}
+                  companyUrl={`#${study.companyName.toLowerCase().replace(/\s+/g, '-')}`}
+                  description={study.description}
+                  clientQuote={study.clientQuote}
+                  ctaText={caseStudies.cta.caseStudyLink}
+                  ctaLink="https://www.keyholders.agency/ai-scan"
+                  index={index}
+                />
+              );
+            })}
+          </div>
+          
+          {/* Conclusion */}
+          <div
+            ref={conclusionRef}
+            className="max-w-4xl mx-auto text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+              {caseStudies.conclusion.heading}
+            </h2>
+            <p className="text-xl text-white/80 mb-10">
+              {caseStudies.conclusion.description}
+            </p>
+            
+            {/* Benefits */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
+              {Array.isArray(caseStudies.conclusion.benefits) && caseStudies.conclusion.benefits.map((benefit: string, index: number) => (
+                <div 
+                  key={index}
+                  className="bg-white/5 p-4 rounded-lg flex items-center gap-3"
+                >
+                  <div className="w-6 h-6 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-400">
+                    <Sparkles className="w-3 h-3" />
+                  </div>
+                  <span className="text-white/80">{benefit}</span>
+                </div>
+              ))}
+            </div>
+            
+            {/* Stats - Add this section */}
+            {caseStudies.conclusion.stats && (
+              <div 
+                ref={statsRef}
+                className="flex flex-col md:flex-row items-center justify-center gap-10 mb-16"
+              >
+                {caseStudies.conclusion.stats.taskCompletion && (
+                  <div className="stat-item bg-gradient-to-br from-purple-600/10 to-indigo-600/10 border border-purple-500/20 p-6 rounded-xl text-center min-w-[200px]">
+                    <div className="text-4xl font-bold text-white mb-2">
+                      {caseStudies.conclusion.stats.taskCompletion.value}
+                    </div>
+                    <div className="text-purple-300">
+                      {caseStudies.conclusion.stats.taskCompletion.label}
+                    </div>
+                  </div>
+                )}
+                {caseStudies.conclusion.stats.errors && (
+                  <div className="stat-item bg-gradient-to-br from-indigo-600/10 to-blue-600/10 border border-indigo-500/20 p-6 rounded-xl text-center min-w-[200px]">
+                    <div className="text-4xl font-bold text-white mb-2">
+                      {caseStudies.conclusion.stats.errors.value}
+                    </div>
+                    <div className="text-indigo-300">
+                      {caseStudies.conclusion.stats.errors.label}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+          
+          {/* CTA */}
+          <div className="text-center">
+            <h2 className="text-3xl font-bold text-white mb-6">
+              {caseStudies.cta.heading}
+            </h2>
+            <p className="text-xl text-white/80 mb-10 max-w-2xl mx-auto">
+              {caseStudies.cta.description}
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link 
+                href="https://www.keyholders.agency/ai-scan"
+                className="inline-flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white py-3 px-6 rounded-lg transition-colors duration-200"
+              >
+                <span>{caseStudies.cta.primaryCta}</span>
+                <Sparkles className="h-4 w-4" />
+              </Link>
+              <Link 
+                href="https://www.keyholders.agency/ai-scan"
+                className="inline-flex items-center justify-center gap-2 border border-purple-500/30 hover:border-purple-500/60 text-white py-3 px-6 rounded-lg transition-colors duration-200"
+              >
+                <span>{caseStudies.cta.secondaryCta}</span>
+              </Link>
+              <Link 
+                href="https://www.keyholders.agency/ai-act"
+                className="text-purple-300 hover:text-purple-200 py-3 px-3 transition-colors duration-200"
+              >
+                {caseStudies.cta.tertiaryLink}
+              </Link>
+            </div>
           </div>
         </div>
       </div>

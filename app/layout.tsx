@@ -6,6 +6,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Analytics } from "@vercel/analytics/react";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
+import { I18nProvider } from "./i18n/context";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -55,9 +56,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // The forced locale is now handled in app/nl/layout.tsx for Dutch pages
   return (
     <ClerkProvider publishableKey={publishableKey}>
-      <html lang="en" suppressHydrationWarning>
+      <html lang="nl" suppressHydrationWarning>
         <body className={GeistSans.className}>
           <Provider>
             <ThemeProvider
@@ -66,9 +68,11 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              {children}
-              <Toaster />
-              <CookieConsent />
+              <I18nProvider>
+                {children}
+                <Toaster />
+                <CookieConsent />
+              </I18nProvider>
             </ThemeProvider>
           </Provider>
           <Analytics />

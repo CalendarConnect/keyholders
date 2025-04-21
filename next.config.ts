@@ -15,6 +15,8 @@ const nextConfig: NextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
+  // Configure proper source maps to fix URL resolution issues
+  productionBrowserSourceMaps: true,
   images: {
     remotePatterns: [
       {
@@ -50,7 +52,8 @@ const nextConfig: NextConfig = {
     ],
   },
   experimental: {
-    reactCompiler: true,
+    // Disable React compiler to fix source map issues
+    reactCompiler: false,
   },
   pageExtensions: ["ts", "tsx", "mdx"],
 };

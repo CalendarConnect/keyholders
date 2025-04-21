@@ -23,31 +23,35 @@ import {
   SheetTrigger,
 } from "../ui/sheet";
 import { UserProfile } from "../user-profile";
-
-const serviceItems: { title: string; href: string; description: string, icon: React.ReactNode }[] = [
-  {
-    title: "RevOps Automation",
-    href: "/services/revops",
-    description: "Streamline your revenue operations with custom automation solutions.",
-    icon: <BarChart className="h-4 w-4 text-purple-400" />
-  },
-  {
-    title: "Business Intelligence",
-    href: "/services/business-intelligence",
-    description: "Turn your data into actionable insights with our analytics solutions.",
-    icon: <LineChart className="h-4 w-4 text-blue-400" />
-  },
-  {
-    title: "Custom Integrations",
-    href: "/services/integrations",
-    description: "Connect all your systems to create a unified data ecosystem.",
-    icon: <Bot className="h-4 w-4 text-teal-400" />
-  },
-];
+import { useI18n } from "@/app/i18n/context";
+import LanguageSwitcher from "../language-switcher";
 
 export default function NavBar() {
   const { userId } = useAuth();
   const [isScrolled, setIsScrolled] = React.useState(false);
+  const { dictionary } = useI18n();
+
+  // Create service items using i18n translations
+  const serviceItems: { title: string; href: string; description: string, icon: React.ReactNode }[] = [
+    {
+      title: dictionary.services.revops.title,
+      href: "/services/revops",
+      description: dictionary.services.revops.description,
+      icon: <BarChart className="h-4 w-4 text-purple-400" />
+    },
+    {
+      title: dictionary.services.businessIntelligence.title,
+      href: "/services/business-intelligence",
+      description: dictionary.services.businessIntelligence.description,
+      icon: <LineChart className="h-4 w-4 text-blue-400" />
+    },
+    {
+      title: dictionary.services.integrations.title,
+      href: "/services/integrations",
+      description: dictionary.services.integrations.description,
+      icon: <Bot className="h-4 w-4 text-teal-400" />
+    },
+  ];
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -99,14 +103,14 @@ export default function NavBar() {
                       variant="ghost"
                       className="w-full justify-start text-base font-normal h-11 border border-purple-900/20 mb-2 text-white hover:bg-purple-500/10 hover:text-purple-300 transition-colors"
                     >
-                      <span className="mr-2">🇪🇺</span> EU AI Act
+                      <span className="mr-2">🇪🇺</span> {dictionary.nav.euAiAct}
                     </Button>
                   </Link>
                 </div>
 
                 <div className="px-2 pb-4 hidden">
                   <h2 className="text-sm font-medium text-purple-400 mb-2">
-                    Services
+                    {dictionary.nav.services}
                   </h2>
                   {serviceItems.map((item) => (
                     <Link key={item.href} href={item.href} prefetch={true}>
@@ -122,14 +126,14 @@ export default function NavBar() {
 
                 <div className="px-2 py-4 border-t border-purple-900/20">
                   <h2 className="text-sm font-medium text-purple-400 mb-2">
-                    Company
+                    {dictionary.companySection.title}
                   </h2>
                   <Link href="/about" prefetch={true}>
                     <Button
                       variant="ghost"
                       className="w-full justify-start text-base font-normal h-11 border border-purple-900/20 mb-2 text-white hover:bg-purple-500/10 hover:text-purple-300 transition-colors"
                     >
-                      About Us
+                      {dictionary.nav.about}
                     </Button>
                   </Link>
                   <Link href="/case-studies" prefetch={true}>
@@ -137,7 +141,7 @@ export default function NavBar() {
                       variant="ghost"
                       className="w-full justify-start text-base font-normal h-11 border border-purple-900/20 mb-2 text-white hover:bg-purple-500/10 hover:text-purple-300 transition-colors"
                     >
-                      Case Studies
+                      {dictionary.nav.caseStudies}
                     </Button>
                   </Link>
                   <Link href="/ai-scan" prefetch={true}>
@@ -145,7 +149,7 @@ export default function NavBar() {
                       variant="ghost"
                       className="w-full justify-start text-base font-normal h-11 border border-purple-900/20 mb-2 text-white hover:bg-purple-500/10 hover:text-purple-300 transition-colors hidden"
                     >
-                      AI Scan
+                      {dictionary.nav.aiScan}
                     </Button>
                   </Link>
                   <Link href="/careers" prefetch={true}>
@@ -153,7 +157,7 @@ export default function NavBar() {
                       variant="ghost"
                       className="w-full justify-start text-base font-normal h-11 border border-purple-900/20 mb-2 text-white hover:bg-purple-500/10 hover:text-purple-300 transition-colors"
                     >
-                      Become a Keyholder
+                      {dictionary.nav.careers}
                     </Button>
                   </Link>
                   <Link href="/contact" prefetch={true}>
@@ -162,7 +166,7 @@ export default function NavBar() {
                       className="w-full justify-start text-base font-normal h-11 border border-purple-900/20 hover:bg-purple-500/10 hover:text-purple-300 transition-colors"
                     >
                       <MessagesSquare className="h-4 w-4 mr-2" />
-                      Contact Us
+                      {dictionary.nav.contact}
                     </Button>
                   </Link>
                 </div>
@@ -171,7 +175,7 @@ export default function NavBar() {
                   <div className="px-2 py-4 border-t border-purple-900/20 mt-auto">
                     <Link href="/sign-in" prefetch={true}>
                       <Button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white border-0">
-                        Sign in
+                        {dictionary.nav.signIn}
                       </Button>
                     </Link>
                   </div>
@@ -206,14 +210,14 @@ export default function NavBar() {
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center gap-8">
           <Link href="/ai-act" prefetch={true}>
-            <span className="text-white hover:text-purple-300 transition-colors text-sm">EU AI Act</span>
+            <span className="text-white hover:text-purple-300 transition-colors text-sm">{dictionary.nav.euAiAct}</span>
           </Link>
           
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem className="hidden">
                 <NavigationMenuTrigger className="text-white hover:text-purple-300 bg-transparent hover:bg-transparent data-[state=open]:bg-transparent data-[state=open]:text-purple-300 px-0">
-                  <span className="text-sm">Services</span>
+                  <span className="text-sm">{dictionary.nav.services}</span>
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-[#0a0a0f] border border-purple-900/20 rounded-xl backdrop-blur-lg">
@@ -234,31 +238,34 @@ export default function NavBar() {
           </NavigationMenu>
 
           <Link href="/case-studies" prefetch={true}>
-            <span className="text-white hover:text-purple-300 transition-colors text-sm">Case Studies</span>
+            <span className="text-white hover:text-purple-300 transition-colors text-sm">{dictionary.nav.caseStudies}</span>
           </Link>
           <Link href="/ai-scan" prefetch={true}>
-            <span className="text-white hover:text-purple-300 transition-colors text-sm hidden">AI Scan</span>
+            <span className="text-white hover:text-purple-300 transition-colors text-sm hidden">{dictionary.nav.aiScan}</span>
           </Link>
           <Link href="/about" prefetch={true}>
-            <span className="text-white hover:text-purple-300 transition-colors text-sm">About Us</span>
+            <span className="text-white hover:text-purple-300 transition-colors text-sm">{dictionary.nav.about}</span>
           </Link>
           <Link href="/careers" prefetch={true}>
-            <span className="text-white hover:text-purple-300 transition-colors text-sm">Become a Keyholder</span>
+            <span className="text-white hover:text-purple-300 transition-colors text-sm">{dictionary.nav.careers}</span>
           </Link>
           <Link href="/contact" prefetch={true}>
-            <span className="text-white hover:text-purple-300 transition-colors text-sm">Contact</span>
+            <span className="text-white hover:text-purple-300 transition-colors text-sm">{dictionary.nav.contact}</span>
           </Link>
         </div>
 
         {/* Right Side */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
+          {/* Language Switcher */}
+          <LanguageSwitcher />
+
           {!userId && (
             <Link href="/sign-in" prefetch={true} className="hidden">
               <Button
                 variant="default"
                 className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white border-0"
               >
-                Client Portal
+                {dictionary.nav.clientPortal}
               </Button>
             </Link>
           )}

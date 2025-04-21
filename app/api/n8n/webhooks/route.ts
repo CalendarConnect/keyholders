@@ -8,67 +8,48 @@ import { api } from '@/convex/_generated/api';
  * This route accepts webhook calls from n8n when workflows complete,
  * allowing us to update execution status and handle credits
  */
+const client = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
+
 export async function POST(request: Request) {
   try {
-    // Parse the webhook payload
-    const payload = await request.json();
+    const data = await request.json();
     
-    // Log the webhook payload for debugging
-    console.log('Received n8n webhook:', payload);
-    
-    // Extract key information
-    const {
-      clientId,
-      automationId,
-      executionId,
-      status,
-      result,
-    } = payload;
-    
-    // Skip processing if critical data is missing
-    if (!clientId || !automationId) {
-      return NextResponse.json({ 
-        success: false,
-        error: 'Missing required parameters (clientId, automationId)' 
-      }, { status: 400 });
+    // Basic validation for required fields
+    if (!data.content) {
+      return NextResponse.json(
+        { success: false, error: "Missing required field: content" },
+        { status: 400 }
+      );
     }
     
-    // Initialize Convex client
-    const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
+    // Extract the user ID from the request if present
+    const userId = data.userId || data.user?.tokenIdentifier;
     
-    try {
-      // Record the execution in our database
-      await convex.mutation(api.clients.recordClientExecution, {
-        clientId,
-        automationId,
-        n8nExecutionId: executionId || `webhook-${Date.now()}`,
-        status: status || 'success',
-        startedAt: Date.now() - 1000, // Approximate start time (1 second ago)
-        finishedAt: Date.now(),
-        result: result || { received: true },
-      });
-      
-      return NextResponse.json({ 
-        success: true,
-        message: 'Execution recorded and credits processed' 
-      });
-    } catch (error) {
-      console.error('Error recording execution:', error);
-      return NextResponse.json({ 
-        success: false,
-        error: error instanceof Error ? error.message : 'Failed to record execution'
-      }, { status: 500 });
+    if (!userId) {
+      return NextResponse.json(
+        { success: false, error: "Missing required field: userId" },
+        { status: 400 }
+      );
     }
+    
+    // Save the message to Convex
+    await client.mutation(api.linkedout.saveWebhookMessage, {
+      content: data.content,
+      chatId: data.chatId,
+      messageId: data.messageId,
+      recipientName: data.recipientName,
+      linkedinProfileURL: data.linkedinProfileURL,
+      recipientLinkedInFollowerCount: data.recipientLinkedInFollowerCount,
+      timestamp: data.timestamp || new Date().toISOString(),
+      isFromMe: data.isFromMe !== undefined ? data.isFromMe : false,
+      userId: userId,
+    });
+    
+    return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Error processing n8n webhook:', error);
-    
-    // Return error response
+    console.error("Error processing webhook:", error);
     return NextResponse.json(
-      { 
-        error: error instanceof Error 
-          ? error.message 
-          : 'Failed to process webhook' 
-      },
+      { success: false, error: "Internal server error" },
       { status: 500 }
     );
   }

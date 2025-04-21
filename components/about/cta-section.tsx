@@ -7,6 +7,7 @@ import { ArrowRight, Zap, Check, Shield } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { motion, useMotionValue, useTransform } from "motion/react";
+import { useI18n } from "@/app/i18n/context";
 
 // Register GSAP plugins
 if (typeof window !== "undefined") {
@@ -24,6 +25,66 @@ export default function CTASection() {
   const mouseY = useMotionValue(0);
   const btnRef = useRef<HTMLDivElement>(null);
   const [hasHovered, setHasHovered] = useState(false);
+  const { language } = useI18n();
+  
+  const content = {
+    en: {
+      badge: "Begin Your AI Journey Today",
+      heading: "Ready to Transform Your Business?",
+      description: "Join forward-thinking companies that have transformed their operations with our intelligent automation solutions. Let's build AI systems that respect your business values and deliver measurable results.",
+      benefitsHeading: "Partner with Keyholders to gain:",
+      benefits: [
+        "Streamlined workflows and processes",
+        "Reduced manual tasks through intelligent automation",
+        "Secure and compliant AI implementation",
+        "Enhanced data-driven decision making",
+        "Personalized training and ongoing support"
+      ],
+      stats: {
+        processCompletion: "90%",
+        processLabel: "faster process completion",
+        errorReduction: "75%",
+        errorLabel: "reduction in manual errors"
+      },
+      cta: {
+        sectionTitle: "Start your automation journey",
+        sectionDescription: "Book a free consultation with our automation specialists and discover how we can transform your business processes.",
+        primaryButton: "Book a Free Consultation",
+        caseStudiesLink: "View Case Studies",
+        scanLink: "Automation Scan",
+        learnMoreLink: "Learn more about the regulations"
+      }
+    },
+    nl: {
+      badge: "Begin Vandaag Je AI-reis",
+      heading: "Klaar om Je Bedrijf te Transformeren?",
+      description: "Sluit je aan bij vooruitdenkende bedrijven die hun operaties hebben getransformeerd met onze intelligente automatiseringsoplossingen. Laten we AI-systemen bouwen die je bedrijfswaarden respecteren en meetbare resultaten opleveren.",
+      benefitsHeading: "Partner met Keyholders en krijg:",
+      benefits: [
+        "Werkprocessen die gewoon beter lopen",
+        "Minder handmatig gedoe dankzij slimme automatisering",
+        "AI die veilig draait en voldoet aan de regels",
+        "Besluiten nemen op basis van échte inzichten",
+        "Training op maat en hulp wanneer je die nodig hebt"
+      ],
+      stats: {
+        processCompletion: "90%",
+        processLabel: "snellere procesafhandeling",
+        errorReduction: "75%",
+        errorLabel: "vermindering van handmatige fouten"
+      },
+      cta: {
+        sectionTitle: "Begin met nog slimmer werken",
+        sectionDescription: "Plan een gratis sessie met ons team en ontdek wat er mogelijk is als je processen niet langer handmatig hoeft te doen.",
+        primaryButton: "Ja, ik wil een gratis AI consult! ",
+        caseStudiesLink: "Bekijk Case Studies",
+        scanLink: "Automatisering Scan",
+        learnMoreLink: "Meer weten over de regelgeving"
+      }
+    }
+  };
+
+  const currentContent = language === "nl" ? content.nl : content.en;
   
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!btnRef.current) return;
@@ -106,14 +167,6 @@ export default function CTASection() {
     return () => ctx.revert();
   }, []);
   
-  const benefits = [
-    "Streamlined workflows and processes",
-    "Reduced manual tasks through intelligent automation",
-    "Secure and compliant AI implementation",
-    "Enhanced data-driven decision making",
-    "Personalized training and ongoing support"
-  ];
-  
   return (
     <section 
       ref={sectionRef}
@@ -150,7 +203,7 @@ export default function CTASection() {
             >
               <div className="flex items-center gap-2">
                 <Shield className="h-4 w-4" />
-                <span>Begin Your AI Journey Today</span>
+                <span>{currentContent.badge}</span>
               </div>
             </div>
 
@@ -158,14 +211,14 @@ export default function CTASection() {
               ref={headingRef}
               className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 text-white"
             >
-              Ready to Transform Your Business?
+              {currentContent.heading}
             </h2>
 
             <p
               ref={descriptionRef}
               className="text-xl text-gray-300 font-light mb-10 max-w-3xl mx-auto"
             >
-              Join forward-thinking companies that have transformed their operations with our intelligent automation solutions. Let&apos;s build AI systems that respect your business values and deliver measurable results.
+              {currentContent.description}
             </p>
           </div>
 
@@ -174,11 +227,11 @@ export default function CTASection() {
             {/* Benefits column */}
             <div>
               <h3 className="text-2xl font-semibold text-white mb-8">
-                Partner with Keyholders to gain:
+                {currentContent.benefitsHeading}
               </h3>
 
               <ul ref={listRef} className="space-y-4 mb-8">
-                {benefits.map((benefit, index) => (
+                {currentContent.benefits.map((benefit, index) => (
                   <li
                     key={index}
                     className="benefit-item flex items-center gap-3"
@@ -195,12 +248,12 @@ export default function CTASection() {
               <div className="p-6 rounded-xl border border-white/5 bg-white/5 backdrop-blur-sm relative overflow-hidden">
                 <div className="grid grid-cols-2 gap-6">
                   <div>
-                    <p className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-300 to-blue-300">90%</p>
-                    <p className="text-gray-400 mt-1">faster process completion</p>
+                    <p className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-300 to-blue-300">{currentContent.stats.processCompletion}</p>
+                    <p className="text-gray-400 mt-1">{currentContent.stats.processLabel}</p>
                   </div>
                   <div>
-                    <p className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-purple-300">75%</p>
-                    <p className="text-gray-400 mt-1">reduction in manual errors</p>
+                    <p className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-purple-300">{currentContent.stats.errorReduction}</p>
+                    <p className="text-gray-400 mt-1">{currentContent.stats.errorLabel}</p>
                   </div>
                 </div>
               </div>
@@ -220,10 +273,10 @@ export default function CTASection() {
                 {/* Content */}
                 <div className="relative z-10">
                   <h3 className="text-2xl md:text-3xl font-bold text-white mb-6">
-                    Start your automation journey
+                    {currentContent.cta.sectionTitle}
                   </h3>
                   <p className="text-gray-300 mb-8">
-                    Book a free consultation with our automation specialists and discover how we can transform your business processes.
+                    {currentContent.cta.sectionDescription}
                   </p>
 
                   {/* CTA Button with glow effect */}
@@ -246,7 +299,7 @@ export default function CTASection() {
                           size="lg"
                           className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white text-lg py-6 px-8 h-auto rounded-xl"
                         >
-                          <span className="mr-2">Book a Free Consultation</span>
+                          <span className="mr-2">{currentContent.cta.primaryButton}</span>
                           <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                         </Button>
                       </div>
@@ -259,7 +312,7 @@ export default function CTASection() {
                       href="/case-studies"
                       className="flex items-center justify-center px-4 py-3 rounded-lg bg-white/5 hover:bg-white/10 text-white text-center transition-colors"
                     >
-                      <span>View Case Studies</span>
+                      <span>{currentContent.cta.caseStudiesLink}</span>
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                     <Link
@@ -267,7 +320,7 @@ export default function CTASection() {
                       className="flex items-center justify-center px-4 py-3 rounded-lg bg-white/5 hover:bg-white/10 text-white text-center transition-colors"
                     >
                       <Zap className="mr-2 h-4 w-4" />
-                      <span>Automation Scan</span>
+                      <span>{currentContent.cta.scanLink}</span>
                     </Link>
                     <Link
                       href="https://www.europarl.europa.eu/topics/en/article/20230601STO93804/eu-ai-act-first-regulation-on-artificial-intelligence"
@@ -276,7 +329,7 @@ export default function CTASection() {
                       className="flex items-center justify-center px-4 py-3 rounded-lg bg-white/5 hover:bg-white/10 text-white text-center transition-colors"
                     >
                       <Shield className="mr-2 h-4 w-4" />
-                      <span>Learn more about the regulations</span>
+                      <span>{currentContent.cta.learnMoreLink}</span>
                     </Link>
                   </div>
                 </div>

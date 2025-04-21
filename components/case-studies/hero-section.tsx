@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Sparkles, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { useI18n } from "@/app/i18n/context";
 
 // Register GSAP plugins
 if (typeof window !== "undefined") {
@@ -12,61 +13,81 @@ if (typeof window !== "undefined") {
 }
 
 export default function CaseStudiesHero() {
+  const { dictionary } = useI18n();
+  
+  // Add fallback for missing translations
+  const caseStudies = dictionary.caseStudies || {
+    hero: {
+      badge: "Client Success Stories",
+      heading: "Real Results Through Intelligent Automation",
+      description: "Discover how our custom AI solutions have transformed businesses across industries, delivering measurable ROI and sustainable growth."
+    },
+    features: {
+      title: "Our Case Studies"
+    }
+  };
+  
   const headingRef = useRef<HTMLHeadingElement>(null);
   const textRef = useRef<HTMLParagraphElement>(null);
   const badgeRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Animate heading
-      gsap.fromTo(
-        headingRef.current,
-        { opacity: 0, y: 30 },
-        { 
-          opacity: 1, 
-          y: 0, 
-          duration: 0.8,
-          delay: 0.2
-        }
-      );
-      
-      // Animate badge
-      gsap.fromTo(
-        badgeRef.current,
-        { opacity: 0, y: 20 },
-        { 
-          opacity: 1, 
-          y: 0, 
-          duration: 0.6
-        }
-      );
-      
-      // Animate text
-      gsap.fromTo(
-        textRef.current,
-        { opacity: 0, y: 20 },
-        { 
-          opacity: 1, 
-          y: 0, 
-          duration: 0.8,
-          delay: 0.4
-        }
-      );
-      
-      // Spotlight text effect
-      gsap.fromTo(
-        ".spotlight-text",
-        { backgroundSize: "0% 40%" },
-        { 
-          backgroundSize: "100% 40%", 
-          duration: 1.2, 
-          delay: 0.8,
-          ease: "power2.out"
-        }
-      );
-    });
+    if (typeof window === 'undefined') return;
     
-    return () => ctx.revert();
+    try {
+      const ctx = gsap.context(() => {
+        // Animate heading
+        gsap.fromTo(
+          headingRef.current,
+          { opacity: 0, y: 30 },
+          { 
+            opacity: 1, 
+            y: 0, 
+            duration: 0.8,
+            delay: 0.2
+          }
+        );
+        
+        // Animate badge
+        gsap.fromTo(
+          badgeRef.current,
+          { opacity: 0, y: 20 },
+          { 
+            opacity: 1, 
+            y: 0, 
+            duration: 0.6
+          }
+        );
+        
+        // Animate text
+        gsap.fromTo(
+          textRef.current,
+          { opacity: 0, y: 20 },
+          { 
+            opacity: 1, 
+            y: 0, 
+            duration: 0.8,
+            delay: 0.4
+          }
+        );
+        
+        // Spotlight text effect
+        gsap.fromTo(
+          ".spotlight-text",
+          { backgroundSize: "0% 40%" },
+          { 
+            backgroundSize: "100% 40%", 
+            duration: 1.2, 
+            delay: 0.8,
+            ease: "power2.out"
+          }
+        );
+      });
+      
+      return () => ctx.revert();
+    } catch (error) {
+      console.error("Animation error:", error);
+    }
   }, []);
   
   return (
@@ -89,31 +110,28 @@ export default function CaseStudiesHero() {
             className="inline-flex items-center gap-2 bg-purple-500/10 px-4 py-2 rounded-full mb-6"
           >
             <Sparkles className="h-4 w-4 text-purple-400" />
-            <span className="text-sm font-medium text-purple-400">Success Stories</span>
+            <span className="text-sm font-medium text-purple-400">{caseStudies.hero.badge}</span>
           </div>
           
           <h1 
             ref={headingRef}
             className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight"
           >
-            AI Automation <span className="relative">
-              <span className="relative z-10">in Action</span>
-              <div className="absolute -inset-1 -z-0 opacity-30 blur-lg rounded-full bg-gradient-to-r from-purple-600 to-blue-600"></div>
-            </span>
+            {caseStudies.hero.heading}
           </h1>
           
           <p 
             ref={textRef}
             className="text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto mb-12"
           >
-            Discover how Keyholders Agency has transformed businesses with custom AI solutions. Our clients are <span className="spotlight-text relative bg-gradient-to-r from-purple-400 to-blue-400 bg-no-repeat bg-left-bottom font-medium">saving time, reducing errors, and increasing productivity</span> through intelligent automation.
+            {caseStudies.hero.description}
           </p>
           
           <Link 
             href="#case-studies"
             className="inline-flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white py-3 px-6 rounded-lg transition-colors duration-200"
           >
-            <span>Explore Our Case Studies</span>
+            <span>{caseStudies.features.title}</span>
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>

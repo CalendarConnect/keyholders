@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Sparkles } from "lucide-react";
 import Image from "next/image";
+import { useI18n } from "@/app/i18n/context";
 
 // Register GSAP plugins
 if (typeof window !== "undefined") {
@@ -15,6 +16,30 @@ export default function AboutHero() {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const textRef = useRef<HTMLParagraphElement>(null);
   const badgeRef = useRef<HTMLDivElement>(null);
+  const { language } = useI18n();
+  
+  const content = {
+    en: {
+      badge: "Our Story",
+      title: "About",
+      agencyName: "Keyholders",
+      subtitle: "Agency",
+      whyAiTitle: "Why AI?",
+      description: "At Keyholders Agency, we believe that AI will fundamentally transform how businesses operate. Through our custom automations, training programs, and implementation services, we work daily toward our mission: unlocking business growth through intelligent automation that's accessible, secure, and human-guided.",
+      quote: "The key to effective AI implementation isn't just the technology—it's understanding how businesses actually function from the inside."
+    },
+    nl: {
+      badge: "Ons Verhaal",
+      title: "Over",
+      agencyName: "Keyholders",
+      subtitle: "Agency",
+      whyAiTitle: "Waarom AI?",
+      description: "Bij Keyholders Agency geloven we dat AI fundamenteel zal veranderen hoe bedrijven opereren. Via onze maatwerk automatiseringen, trainingsprogramma's en implementatiediensten werken we dagelijks aan onze missie: bedrijfsgroei ontgrendelen door intelligente automatisering die toegankelijk, veilig en door mensen begeleid wordt.",
+      quote: "De sleutel tot effectieve AI-implementatie is niet alleen de technologie, het is begrijpen hoe bedrijven van binnenuit functioneren."
+    }
+  };
+
+  const currentContent = language === "nl" ? content.nl : content.en;
   
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -89,27 +114,27 @@ export default function AboutHero() {
             className="inline-flex items-center gap-2 bg-purple-500/10 px-4 py-2 rounded-full mb-6"
           >
             <Sparkles className="h-4 w-4 text-purple-400" />
-            <span className="text-sm font-medium text-purple-400">Our Story</span>
+            <span className="text-sm font-medium text-purple-400">{currentContent.badge}</span>
           </div>
           
           <h1 
             ref={headingRef}
             className="text-5xl md:text-7xl font-bold text-white mb-8 leading-tight"
           >
-            About <span className="relative">
-              <span className="relative z-10">Keyholders</span>
+            {currentContent.title} <span className="relative">
+              <span className="relative z-10">{currentContent.agencyName}</span>
               <div className="absolute -inset-1 -z-0 opacity-30 blur-lg rounded-full bg-gradient-to-r from-purple-600 to-blue-600"></div>
-            </span> Agency
+            </span> {currentContent.subtitle}
           </h1>
           
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold text-white mb-6">Why AI?</h2>
+              <h2 className="text-3xl font-bold text-white mb-6">{currentContent.whyAiTitle}</h2>
               <p 
                 ref={textRef}
                 className="text-xl text-gray-300 leading-relaxed"
               >
-                At Keyholders Agency, we believe that AI will fundamentally transform how businesses operate. Through our custom automations, training programs, and implementation services, we work daily toward our mission: <span className="spotlight-text relative bg-gradient-to-r from-purple-400 to-blue-400 bg-no-repeat bg-left-bottom font-medium">unlocking business growth through intelligent automation</span> that's accessible, secure, and human-guided.
+                {currentContent.description}
               </p>
             </div>
             
@@ -124,7 +149,7 @@ export default function AboutHero() {
                   className="mx-auto object-contain"
                 />
                 <div className="mt-8 text-center">
-                  <p className="text-white font-light text-xl italic">&ldquo;The key to effective AI implementation isn&apos;t just the technology—it&apos;s understanding how businesses actually function from the inside.&rdquo;</p>
+                  <p className="text-white font-light text-xl italic">&ldquo;{currentContent.quote}&rdquo;</p>
                 </div>
               </div>
             </div>

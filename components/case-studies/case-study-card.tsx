@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
@@ -19,6 +19,8 @@ interface CaseStudyCardProps {
   companyUrl: string;
   description: string;
   clientQuote: string;
+  ctaText?: string;
+  ctaLink?: string;
   index: number;
 }
 
@@ -29,33 +31,52 @@ export default function CaseStudyCard({
   companyUrl,
   description,
   clientQuote,
+  ctaText = "Need a similar solution?",
+  ctaLink = "/contact",
   index
 }: CaseStudyCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const [imageSrc, setImageSrc] = useState(clientImage);
+  const [imageError, setImageError] = useState(false);
   
   useEffect(() => {
-    const card = cardRef.current;
-    if (!card) return;
+    if (typeof window === 'undefined') return;
     
-    gsap.fromTo(
-      card,
-      { 
-        opacity: 0, 
-        y: 50,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: card,
-          start: "top bottom-=100",
+    try {
+      const card = cardRef.current;
+      if (!card) return;
+      
+      gsap.fromTo(
+        card,
+        { 
+          opacity: 0, 
+          y: 50,
         },
-        delay: index * 0.15,
-      }
-    );
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: card,
+            start: "top bottom-=100",
+          },
+          delay: index * 0.15,
+        }
+      );
+    } catch (error) {
+      console.error("Animation error:", error);
+    }
   }, [index]);
+  
+  // Handle image error
+  const handleImageError = () => {
+    if (!imageError) {
+      console.log(`Image not found: ${clientImage}, using fallback`);
+      setImageSrc("/images/placeholder-profile.jpg");
+      setImageError(true);
+    }
+  };
   
   return (
     <div 
@@ -70,11 +91,13 @@ export default function CaseStudyCard({
         <div className="lg:col-span-2 h-full overflow-hidden">
           <div className="relative w-full aspect-square lg:aspect-auto lg:h-full">
             <Image
-              src={clientImage}
+              src={imageSrc}
               alt={`${clientName} from ${companyName}`}
               fill
-              className="object-cover filter grayscale hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
+              className="object-cover filter grayscale transition-all duration-500 group-hover:scale-105"
               style={{ objectPosition: "center top" }}
+              onError={handleImageError}
+              priority
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c18]/80 to-transparent"></div>
           </div>
@@ -90,17 +113,15 @@ export default function CaseStudyCard({
               </div>
               <Link 
                 href={companyUrl} 
-                target="_blank" 
-                rel="noopener noreferrer"
                 className="flex items-center gap-1 text-sm text-gray-400 hover:text-purple-400 transition-colors"
               >
-                <span>Visit</span>
+                <span>Details</span>
                 <ExternalLink className="h-3 w-3" />
               </Link>
             </div>
             
             <div className="mb-6">
-              <h4 className="text-sm uppercase tracking-wider text-gray-500 mb-2">What we built</h4>
+              <h4 className="text-sm uppercase tracking-wider text-gray-500 mb-2">Wat we bouwden</h4>
               <p className="text-gray-300">{description}</p>
             </div>
             
@@ -113,10 +134,10 @@ export default function CaseStudyCard({
           </div>
           
           <Link 
-            href="/contact"
+            href={ctaLink}
             className="inline-flex items-center text-purple-400 hover:text-purple-300 transition-colors"
           >
-            <span>Need a similar solution?</span>
+            <span>{ctaText}</span>
             <ArrowUpRight className="ml-1 h-4 w-4" />
           </Link>
         </div>

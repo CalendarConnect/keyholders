@@ -1,5 +1,6 @@
 import HeroSection from "@/components/homepage/hero-section";
-import ServicesGrid from "@/components/homepage/services-grid";
+import WhyAutomate from "@/components/homepage/why-automate";
+import FlipCardsSection from "@/components/homepage/flip-cards";
 import Testimonials from "@/components/homepage/testimonials";
 import CTASection from "@/components/homepage/cta-section";
 import PageWrapper from "@/components/wrapper/page-wrapper";
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
         alt: "Keyholders Agency",
       },
     ],
-    locale: "en_US",
+    locale: "nl_NL",
     type: "website",
   },
   alternates: {
@@ -34,6 +35,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
+  // We need to fetch the polar products for other parts of the page
   const data = await polar.products.list({
     organizationId: process.env.POLAR_ORGANIZATION_ID,
   });
@@ -71,7 +73,8 @@ export default async function Home() {
       <PageWrapper>
         <main className="flex flex-col w-full bg-[#050510]">
           <HeroSection />
-          <ServicesGrid />
+          <WhyAutomate />
+          <FlipCardsSection />
           <Testimonials />
           <CTASection />
         </main>

@@ -10,6 +10,9 @@ import {
   Workflow,
   Users,
   Bot,
+  Inbox,
+  MessagesSquare,
+  ClipboardList,
 } from "lucide-react"
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -27,19 +30,14 @@ const navItems: NavItem[] = [
     icon: HomeIcon
   },
   {
-    label: "Automations",
-    href: "/dashboard/automations",
-    icon: Bot
+    label: "LinkedOut Inbox",
+    href: "/dashboard/linkedout/inbox",
+    icon: Inbox
   },
   {
-    label: "N8N Workflows",
-    href: "/dashboard/n8n-workflows",
-    icon: Workflow
-  },
-  {
-    label: "Clients",
-    href: "/dashboard/clients",
-    icon: Users
+    label: "Text Snippets",
+    href: "/dashboard/linkedout/snippets",
+    icon: ClipboardList
   },
   {
     label: "Finance",
@@ -73,7 +71,7 @@ export default function DashboardSideBar() {
               href={item.href}
               className={clsx(
                 "flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors",
-                pathname === item.href
+                pathname === item.href || pathname.startsWith(`${item.href}/`)
                   ? "bg-primary/10 text-primary hover:bg-primary/20"
                   : "text-muted-foreground hover:bg-muted hover:text-foreground"
               )}

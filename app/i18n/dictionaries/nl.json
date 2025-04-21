@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "title": "Keyholders Agency",
+    "description": "Ontgrendel Bedrijfsgroei Door Intelligente Automatisering met Keyholders Agency"
+  },
+  "nav": {
+    "euAiAct": "EU AI-wet",
+    "services": "Diensten",
+    "caseStudies": "Case Studies",
+    "aiScan": "AI Scan",
+    "about": "Over Ons",
+    "careers": "Word een Keyholder",
+    "contact": "Contact",
+    "clientPortal": "Klantportaal",
+    "signIn": "Inloggen"
+  },
+  "services": {
+    "revops": {
+      "title": "RevOps Automatisering",
+      "description": "Stroomlijn uw inkomstenactiviteiten met aangepaste automatiseringsoplossingen."
+    },
+    "businessIntelligence": {
+      "title": "Business Intelligence",
+      "description": "Zet uw gegevens om in bruikbare inzichten met onze analytische oplossingen."
+    },
+    "integrations": {
+      "title": "Maatwerk Integraties",
+      "description": "Verbind al uw systemen om een uniform gegevensecosysteem te creëren."
+    }
+  },
+  "companySection": {
+    "title": "Bedrijf"
+  },
+  "homepage": {
+    "hero": {
+      "title": "Ontgrendel Bedrijfsgroei Door Intelligente Automatisering",
+      "description": "Onze op maat gemaakte RevOps-oplossingen verbinden uw volledige technologie-ecosysteem om silo's te elimineren, handmatige taken te verminderen en uw bedrijfsprestaties te versnellen.",
+      "textStates": [
+        { 
+          "highlight": "Sneller problemen opsporen", 
+          "description": "Onze automatiseringsoplossingen brengen inefficiënties in realtime aan het licht" 
+        },
+        { 
+          "highlight": "Meer leads converteren", 
+          "description": "Intelligente werkstromen die prospects door elke fase begeleiden" 
+        },
+        { 
+          "highlight": "Schaalbare operaties", 
+          "description": "Systemen die meegroeien met uw bedrijf zonder extra overhead" 
+        }
+      ],
+      "cta": {
+        "primary": "Doe de AI Scan!",
+        "secondary": "Bekijk case studies"
+      },
+      "stats": {
+        "timeSaved": {
+          "value": "85%",
+          "label": "Tijdsbesparing op handmatige gegevensinvoer"
+        },
+        "conversion": {
+          "value": "42%",
+          "label": "Gemiddelde toename in leadconversie"
+        },
+        "automation": {
+          "value": "24/7",
+          "label": "Automatiseringssystemen die nooit slapen"
+        }
+      }
+    },
+    "services": {
+      "title": "Transformeer Uw Werkstroom",
+      "description": "We automatiseren niet alleen taken—we herdefiniëren hoe uw bedrijf opereert. Onze oplossingen helpen u sneller problemen op te sporen en te focussen op wat belangrijk is.",
+      "hint": "Tik of klik op kaarten om de resultaten te zien",
+      "cards": {
+        "seeResults": "Bekijk resultaten",
+        "backToService": "Terug naar dienst"
+      },
+      "items": [
+        {
+          "id": 1,
+          "title": "RevOps Automatisering",
+          "description": "Stroomlijn uw inkomstenactiviteiten met intelligente automatiseringsoplossingen.",
+          "outcomeTitle": "Omzetgroei",
+          "outcomeDescription": "35% toename in conversies en 28% snellere dealcycli. Uw team kan zich richten op strategie in plaats van repetitieve taken."
+        },
+        {
+          "id": 2,
+          "title": "Business Intelligence",
+          "description": "Transformeer data naar bruikbare inzichten die strategische besluitvorming stimuleren.",
+          "outcomeTitle": "Data-Gedreven Succes",
+          "outcomeDescription": "Toegang tot realtime inzichten die verborgen kansen onthullen en u helpen sneller beslissingen te nemen dan concurrenten."
+        },
+        {
+          "id": 3,
+          "title": "Slim Plannen",
+          "description": "Elimineer coördinatieproblemen met intelligent afsprakenbeheer.",
+          "outcomeTitle": "Teruggewonnen Tijd",
+          "outcomeDescription": "Bespaar 5+ uur per week op planning en coördinatie. Hogere opkomstpercentages en nul dubbele boekingen."
+        },
+        {
+          "id": 4,
+          "title": "Productiviteitssystemen",
+          "description": "Volg en optimaliseer prestaties met naadloze tijdsmanagementoplossingen.",
+          "outcomeTitle": "Geoptimaliseerde Prestaties",
+          "outcomeDescription": "20% verhoging in teamproductiviteit met duidelijke metrics over wat werkt en wat verbetering nodig heeft."
+        },
+        {
+          "id": 5,
+          "title": "Uniforme Datastromen",
+          "description": "Verbind uw volledige tech-ecosysteem met naadloze data-integratie.",
+          "outcomeTitle": "Eén Bron van Waarheid",
+          "outcomeDescription": "Elimineer datasilo's en verminder fouten met 40%. Elk systeem realtime bijgewerkt met consistente informatie."
+        },
+        {
+          "id": 6,
+          "title": "Teamsynchronisatie",
+          "description": "Bevorder samenwerking met doelgerichte workflows en communicatietools.",
+          "outcomeTitle": "Naadloze Samenwerking",
+          "outcomeDescription": "Cross-functionele teams werken in perfecte harmonie met 50% snellere projectvoltooiing en verbeterde tevredenheid."
+        },
+        {
+          "id": 7,
+          "title": "Systeemconnectiviteit",
+          "description": "Creëer krachtige verbindingen tussen al uw bedrijfsplatforms en tools.",
+          "outcomeTitle": "Geünificeerde Workflows",
+          "outcomeDescription": "Geautomatiseerde gegevensuitwisseling tussen systemen elimineert 95% van handmatige overdrachten en kopieer-plaktaken."
+        },
+        {
+          "id": 8,
+          "title": "AI Assistenten",
+          "description": "Implementeer intelligente assistenten die routinetaken met menselijke precisie afhandelen.",
+          "outcomeTitle": "24/7 Operatie",
+          "outcomeDescription": "Continue taakuitvoering en klantenservice die nooit slaapt, waardoor responstijden met 80% worden verminderd."
+        }
+      ]
+    }
+  },
+  "aiAct": {
+    "meta": {
+      "title": "EU AI-wet Compliance | Intelligente Automatiseringsoplossingen",
+      "description": "Navigeer de EU AI-wet met vertrouwen. Onze AI-gestuurde automatiseringsoplossingen zorgen voor naleving van regelgeving terwijl ze uw bedrijfsgroei versnellen."
+    },
+    "hero": {
+      "badge": "EU AI-wet",
+      "importantRegulation": "Belangrijke Regelgeving",
+      "heading": "De EU AI Act en de AVG in AI-automatisering",
+      "subheading": "AI-regelgeving als routekaart, niet als blokkade",
+      "description": "AI implementeren binnen je organisatie betekent niet alleen technisch bouwen, maar ook voldoen aan regelgeving. De EU AI Act en de AVG bepalen hoe je AI mag gebruiken in je processen en dat is terecht. Deze regels zijn geen obstakel. Ze zijn een blueprint voor verantwoord automatiseren. Met de juiste aanpak voorkom je risico's én bouw je sterker.",
+      "primaryCta": "Start de gratis AI Scan",
+      "secondaryCta": "Plan een korte kennismaking"
+    },
+    "whenApply": {
+      "heading": "Wanneer zijn de AI Act en AVG van toepassing?",
+      "description": "Bijna elke AI-automatisering binnen je organisatie valt onder deze wetgeving zodra je:",
+      "items": [
+        "persoonsgegevens verwerkt (zoals klantdata of sollicitaties)",
+        "beslissingen automatiseert die mensen raken (zoals offertes, beoordelingen)",
+        "generatieve AI inzet (zoals ChatGPT of andere LLM's)",
+        "medewerkers laat werken met AI-toepassingen"
+      ],
+      "additionalInfo": "De AVG regelt hoe je moet omgaan met persoonsgegevens. De AI Act vult dat aan met specifieke verplichtingen voor transparantie, menselijke controle en risicobeheersing bij AI-gebruik."
+    },
+    "requirements": {
+      "heading": "Wat moet je geregeld hebben?",
+      "description": "Bij AI-automatisering gelden vaak de volgende verplichtingen:",
+      "items": [
+        {
+          "title": "Duidelijkheid voor eindgebruikers",
+          "description": "Als AI betrokken is, moet dat zichtbaar zijn."
+        },
+        {
+          "title": "Zero Data Retention",
+          "description": "Voor gevoelige data kun je GPT zo instellen dat er géén opslag of logging plaatsvindt."
+        },
+        {
+          "title": "DPA (Verwerkersovereenkomst)",
+          "description": "Als je AI-tools zoals GPT inzet via OpenAI, heb je een verwerkersovereenkomst nodig."
+        },
+        {
+          "title": "Cloud Act transparantie",
+          "description": "Omdat OpenAI een Amerikaans bedrijf is, moeten klanten weten dat Amerikaanse wetgeving invloed kan hebben."
+        },
+        {
+          "title": "AI-geletterdheid",
+          "description": "Vanaf februari 2025 is het verplicht dat medewerkers weten hoe ze AI veilig en verantwoord mogen gebruiken."
+        }
+      ]
+    },
+    "howWeHelp": {
+      "heading": "Hoe wij helpen",
+      "description": "Bij Keyholders begeleiden we klanten van A tot Z. We maken automatiseren makkelijker, niet moeilijker. Onze rol stopt niet na de implementatie, we blijven beschikbaar zolang jouw automatisering actief is.",
+      "items": [
+        "We analyseren je proces en geven inzicht in welke regels gelden",
+        "We begeleiden de aanvraag van een DPA bij OpenAI (als dat nodig is)",
+        "We configureren Zero Data Retention bij GPT-integraties",
+        "We informeren je helder over risico's zoals de Amerikaanse CLOUD Act",
+        "We documenteren AI-workflows conform de AI Act",
+        "We trainen je personeel met praktische online modules rond AI-geletterdheid"
+      ]
+    },
+    "roadmap": {
+      "heading": "AI-regelgeving als routekaart, niet als blokkade",
+      "description": "De AI Act is geen rem. Het is een blauwdruk die duidelijk maakt hoe je veilig en schaalbaar kunt automatiseren. Met de juiste begeleiding hoef je niets uit te stellen, je voorkomt fouten en versnelt het proces juist."
+    },
+    "scan": {
+      "heading": "Gratis AI Scan: weet waar je staat",
+      "description": "We bieden een kosteloze AI Scan aan die:",
+      "items": [
+        "je huidige situatie in kaart brengt",
+        "je risico's en verplichtingen benoemt",
+        "en laat zien hoe je direct compliant kunt worden zonder technische omwegen"
+      ],
+      "noSales": "De scan is vrijblijvend. Geen verkooppraatje, wel helderheid.",
+      "primaryCta": "Start de gratis AI Scan",
+      "secondaryCta": "Plan een korte kennismaking"
+    }
+  },
+  "caseStudies": {
+    "hero": {
+      "badge": "Succesverhalen",
+      "heading": "AI-automatisering die echt werkt",
+      "description": "Zie hoe andere bedrijven hun werk slimmer zijn gaan doen — niet over jaren, maar binnen dagen. We bouwen GPT-oplossingen die aansluiten op jouw processen. Geen demo-tools, maar systemen die vandaag al waarde leveren."
+    },
+    "features": {
+      "title": "Wat je kunt verwachten",
+      "items": [
+        {
+          "title": "Op maat gemaakt",
+          "description": "Elke automatisering sluit aan op hoe jij écht werkt. Geen standaard oplossingen, geen ruis."
+        },
+        {
+          "title": "Supersnel live",
+          "description": "Van idee naar werkende flow in 2 uur. Soms sneller. Geen wachttijden, geen roadmapgedoe."
+        },
+        {
+          "title": "Resultaat dat je merkt",
+          "description": "Minder foutgevoeligheid. Meer overzicht. Tijdwinst vanaf dag één."
+        }
+      ]
+    },
+    "caseStudies": [
+      {
+        "companyName": "Kindergarten Ikke",
+        "clientName": "Bob",
+        "description": "Een GPT waarmee elke medewerker pedagogische activiteiten kan schrijven in de stijl van Reggio Emilia — de kernvisie van de organisatie.",
+        "clientQuote": "Keyholders bespaart ons tijd, maar nog belangrijker: het heeft onze manier van werken verrijkt. En ja, ik gebruik 'm ook voor mijn e-mails. Maar dat is off the record."
+      },
+      {
+        "companyName": "SDE Consultancy",
+        "clientName": "Sandra",
+        "description": "Een GPT die elke ochtend het belangrijkste cybersecurity-nieuws samenvat. Samengesteld op maat, in haar toon. Tijdens de eerste sessie bouwden we de merkidentiteit, tone of voice en de hele automatisering.",
+        "clientQuote": "Ik weet niet hoeveel tijd Christian me heeft bespaard. Alleen dat het veel is. En ik hou van cijfers, dus dat zegt wat."
+      },
+      {
+        "companyName": "Upbeatles PubQuiz",
+        "clientName": "Pascal",
+        "description": "Een GPT die samenwerkt met Canva. Elke dag automatisch een nieuwe pubquiz — klaar om te gebruiken.",
+        "clientQuote": "Ik stuurde een mail. Twee uur later had ik een link naar een werkende GPT. Wat voorheen 90 minuten per dag kostte, is nu in seconden geregeld. Bizar."
+      },
+      {
+        "companyName": "Fokker V.O.F.",
+        "clientName": "Ashra",
+        "description": "Ashra spreekt zijn offerte in via WhatsApp. GPT analyseert het bericht, pakt de juiste prijzen uit de database, stelt het voorstel op in Fokker-stijl en zet het klaar in zijn mailbox.",
+        "clientQuote": "Ik vroeg gewoon: wat kun je bouwen? En het groeide uit tot een volledig geautomatiseerd proces. Alles klopt. Ik raad iedereen die processen wil versnellen aan om die gratis AI-scan te doen."
+      }
+    ],
+    "conclusion": {
+      "heading": "Automatiseren zonder complexiteit",
+      "description": "De bedrijven hierboven zijn niet techbedrijven. Ze willen gewoon sneller, beter, consistenter werken. Wij zorgen dat dat kan, met AI-oplossingen die passen bij je cultuur én je processen.",
+      "benefits": [
+        "Minder handmatig werk",
+        "Betere doorlooptijden",
+        "Veilige, transparante AI-integratie",
+        "Oplossingen die begrijpelijk blijven",
+        "Ondersteuning als het nodig is"
+      ],
+      "stats": {
+        "taskCompletion": {
+          "value": "90%",
+          "label": "snellere afronding van taken"
+        },
+        "errors": {
+          "value": "75%",
+          "label": "minder handmatige fouten"
+        }
+      }
+    },
+    "cta": {
+      "heading": "Ook klaar om het slimmer aan te pakken?",
+      "description": "Vraag de gratis AI-scan aan. Dan kijken we samen hoe jij kunt versnellen, zonder omweg, zonder druk.",
+      "primaryCta": "Start met de AI-scan",
+      "secondaryCta": "Plan een gratis consult",
+      "tertiaryLink": "Meer weten over de regels?",
+      "caseStudyLink": "Benieuwd hoe dit eruit zou zien voor jouw organisatie?"
+    }
+  },
+  "footer": {
+    "copyright": "© 2024 Keyholders Agency. Alle rechten voorbehouden."
+  }
+} 

@@ -9,7 +9,7 @@ import { UserProfile } from '@/components/user-profile'
 import { api } from '@/convex/_generated/api'
 import { HamburgerMenuIcon } from '@radix-ui/react-icons'
 import { useAction, useQuery } from 'convex/react'
-import { Banknote, Folder, HomeIcon, Settings } from 'lucide-react'
+import { Banknote, ClipboardList, Folder, HomeIcon, Inbox, Settings } from 'lucide-react'
 import Link from 'next/link'
 import { ReactNode } from 'react'
 
@@ -53,6 +53,22 @@ export default function DashboardTopNav({ children }: { children: ReactNode }) {
                   <Button variant="outline" className="w-full">
                     <HomeIcon className="mr-2 h-4 w-4" />
                     Home
+                  </Button>
+                </Link>
+              </DialogClose>
+              <DialogClose asChild>
+                <Link href="/dashboard/linkedout/inbox">
+                  <Button variant="outline" className="w-full">
+                    <Inbox className="mr-2 h-4 w-4" />
+                    LinkedOut Inbox
+                  </Button>
+                </Link>
+              </DialogClose>
+              <DialogClose asChild>
+                <Link href="/dashboard/linkedout/snippets">
+                  <Button variant="outline" className="w-full">
+                    <ClipboardList className="mr-2 h-4 w-4" />
+                    Text Snippets
                   </Button>
                 </Link>
               </DialogClose>

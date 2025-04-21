@@ -19,7 +19,10 @@ import {
   Zap, 
   Coins, 
   RefreshCw,
-  AlertCircle 
+  AlertCircle,
+  Inbox,
+  ClipboardList,
+  Settings
 } from "lucide-react";
 import Link from "next/link";
 import { useQuery } from "convex/react";
@@ -281,7 +284,7 @@ export default function Dashboard() {
                 })}
                 
                 <Button asChild variant="ghost" className="w-full">
-                  <Link href="/dashboard/automations">View All Executions</Link>
+                  <Link href="/dashboard/linkedout/inbox">View LinkedIn Messages</Link>
                 </Button>
               </div>
             )}
@@ -300,20 +303,20 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent className="space-y-2">
             <Button asChild variant="outline" className="w-full justify-start gap-2">
-              <Link href="/dashboard/automations">
-                <Zap className="h-4 w-4" />
-                Manage Automations
+              <Link href="/dashboard/linkedout/inbox">
+                <Inbox className="h-4 w-4" />
+                LinkedOut Inbox
               </Link>
             </Button>
             <Button asChild variant="outline" className="w-full justify-start gap-2">
-              <Link href="/dashboard/credits">
-                <Coins className="h-4 w-4" />
-                Buy Credits
+              <Link href="/dashboard/linkedout/snippets">
+                <ClipboardList className="h-4 w-4" />
+                Manage Text Snippets
               </Link>
             </Button>
             <Button asChild variant="outline" className="w-full justify-start gap-2">
               <Link href="/dashboard/settings">
-                <Users className="h-4 w-4" />
+                <Settings className="h-4 w-4" />
                 Account Settings
               </Link>
             </Button>

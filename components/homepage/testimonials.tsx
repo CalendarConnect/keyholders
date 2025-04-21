@@ -8,43 +8,43 @@ import { useRef, useState, useEffect } from "react";
 const testimonials = [
   {
     id: 1,
-    quote: "I couldn't believe my eyes, what previously took me at least 90 minutes per day, is now done in a matter of seconds.",
+    quote: "Ik kon mijn ogen niet geloven: wat me eerder minstens 90 minuten per dag kostte, is nu in een kwestie van seconden klaar.",
     author: "Pascal",
     title: "Upbeatles PubQuiz",
     company: "Upbeatles",
     avatar: "/avatars/avatar-1.png",
     rating: 5,
-    stats: "90 minutes saved daily"
+    stats: "90 minuten bespaard per dag"
   },
   {
     id: 2,
-    quote: "Keyholders helped us not only save time, but it expands our creativity and our approach to the pedagogical approach of Reggio Emilia. And I use the GPT to write my emails, but that's a little secret.",
+    quote: "Keyholders hielp ons niet alleen tijd besparen, maar vergrootte ook onze creativiteit en onze Reggio Emilia‑benadering. En ik gebruik GPT om mijn e‑mails te schrijven, maar dat blijft even ons geheimpje.",
     author: "Bob",
-    title: "Kindergarten Ikke",
-    company: "Kindergarten Ikke",
+    title: "Kinderopvang Ikke",
+    company: "Kinderopvang Ikke",
     avatar: "/avatars/avatar-2.png",
     rating: 5,
-    stats: "Enhanced creativity"
+    stats: "Vergrote creativiteit"
   },
   {
     id: 3,
-    quote: "I can't calculate how much Christian with Keyholders has saved me in time, but it's a lot. And I love numbers and accuracy!",
+    quote: "Ik kan niet berekenen hoeveel tijd Christian met Keyholders me heeft bespaard, maar het is enorm!",
     author: "Sandra",
     title: "SDE Consultancy Cyber Security",
     company: "SDE Consultancy",
     avatar: "/avatars/avatar-3.png",
     rating: 5,
-    stats: "Daily time savings"
+    stats: "Dagelijkse tijdbesparing"
   },
   {
     id: 4,
-    quote: "I highly recommend the free AI consult with Christian, his eye on automating processes is next level.",
+    quote: "Ik beveel de gratis AI‑consult met Christian ten zeerste aan; zijn blik op het automatiseren van processen is echt next level.",
     author: "Ashra",
     title: "Fokker V.O.F Constructor",
     company: "Fokker V.O.F",
     avatar: "/avatars/avatar-4.png",
     rating: 5,
-    stats: "Fully automated process"
+    stats: "Volledig geautomatiseerd proces"
   }
 ];
 
@@ -110,7 +110,7 @@ export default function Testimonials() {
             className="mb-6"
           >
             <div className="inline-block py-1.5 px-5 rounded-full border border-purple-500/20 bg-purple-500/5 text-sm text-purple-300">
-              Success Stories
+              Succesverhalen
             </div>
           </motion.div>
           
@@ -121,7 +121,7 @@ export default function Testimonials() {
             viewport={{ once: true }}
             className="relative inline-block text-5xl md:text-6xl font-bold mb-6 text-white"
           >
-            <span className="relative z-10">Transformation in Action</span>
+            <span className="relative z-10">Succesverhalen</span>
             <div className="absolute -inset-1 -z-10 opacity-30 blur-2xl rounded-full bg-gradient-to-r from-purple-600 to-blue-600" />
           </motion.h2>
           
@@ -132,7 +132,7 @@ export default function Testimonials() {
             viewport={{ once: true }}
             className="text-xl text-gray-300 max-w-3xl mx-auto"
           >
-            See how our clients have achieved remarkable results with our automation solutions.
+            Ontdek hoe klanten met onze automatiseringen spectaculaire resultaten boeken.
           </motion.p>
         </div>
         
@@ -257,9 +257,9 @@ export default function Testimonials() {
           <div className="relative group">
             <div className="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-blue-600/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <div className="relative p-8 rounded-2xl border border-white/5 bg-gradient-to-b from-white/5 to-transparent h-full">
-              <div className="mb-4 text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-300 to-blue-300">95%</div>
-              <h3 className="text-xl font-semibold text-white mb-2">Client Satisfaction</h3>
-              <p className="text-gray-400">Our clients consistently rate our solutions and support in the top tier.</p>
+              <div className="mb-4 text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-300 to-blue-300">63%</div>
+              <h3 className="text-xl font-semibold text-white mb-2">efficiënter werken</h3>
+              <p className="text-gray-400">Resultaten in cijfers</p>
             </div>
           </div>
           
@@ -267,9 +267,9 @@ export default function Testimonials() {
           <div className="relative group">
             <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-teal-600/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <div className="relative p-8 rounded-2xl border border-white/5 bg-gradient-to-b from-white/5 to-transparent h-full">
-              <div className="mb-4 text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-teal-300">60+</div>
-              <h3 className="text-xl font-semibold text-white mb-2">Hours Saved Weekly</h3>
-              <p className="text-gray-400">On average, our clients reclaim over 60 hours per week through automation.</p>
+              <div className="mb-4 text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-teal-300">12×</div>
+              <h3 className="text-xl font-semibold text-white mb-2">hogere conversies</h3>
+              <p className="text-gray-400">Resultaten in cijfers</p>
             </div>
           </div>
           
@@ -277,9 +277,9 @@ export default function Testimonials() {
           <div className="relative group">
             <div className="absolute inset-0 bg-gradient-to-br from-teal-600/20 to-purple-600/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <div className="relative p-8 rounded-2xl border border-white/5 bg-gradient-to-b from-white/5 to-transparent h-full">
-              <div className="mb-4 text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-teal-300 to-purple-300">40%</div>
-              <h3 className="text-xl font-semibold text-white mb-2">Growth Acceleration</h3>
-              <p className="text-gray-400">Our automation solutions help businesses grow faster by focusing on strategy instead of repetitive tasks.</p>
+              <div className="mb-4 text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-teal-300 to-purple-300">24/7</div>
+              <h3 className="text-xl font-semibold text-white mb-2">altijd automatisch</h3>
+              <p className="text-gray-400">Resultaten in cijfers</p>
             </div>
           </div>
         </motion.div>

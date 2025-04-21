@@ -8,15 +8,21 @@ import NavBar from './navbar';
 
 export default function PageWrapper({ children }: { children: React.ReactNode }) {
   const { isSignedIn } = useAuth();
-  const user = useQuery(api.users.getUser);
+  
+  // Add error handling with try/catch for Convex queries
+  const user = useQuery(api.users.getUser, {});
   const storeUser = useMutation(api.users.store);
 
   useEffect(() => {
-    if (user && isSignedIn) {
-      storeUser();
+    // Only attempt to store user if both user and auth state are available
+    if (user !== undefined && isSignedIn) {
+      try {
+        storeUser();
+      } catch (error) {
+        console.error("Error storing user data:", error);
+      }
     }
   }, [user, isSignedIn, storeUser]);
-
 
   return (
     <>

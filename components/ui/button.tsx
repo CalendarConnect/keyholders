@@ -31,6 +31,14 @@ const buttonVariants = cva(
           "relative after:absolute after:bg-primary after:bottom-2 after:h-[1px] after:w-2/3 after:origin-bottom-left after:scale-x-100 hover:after:origin-bottom-right hover:after:scale-x-0 after:transition-transform after:ease-in-out after:duration-300",
         linkHover2:
           "relative after:absolute after:bg-primary after:bottom-2 after:h-[1px] after:w-2/3 after:origin-bottom-right after:scale-x-0 hover:after:origin-bottom-left hover:after:scale-x-100 after:transition-transform after:ease-in-out after:duration-300",
+        premium:
+          "bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 text-white shadow-md hover:shadow-lg hover:opacity-90 hover-lift",
+        subtle:
+          "bg-muted/50 text-muted-foreground hover:bg-muted",
+        glow:
+          "bg-black/50 text-white border border-purple-300/30 shadow-[0_0_15px_rgba(124,58,237,0.5)] hover:shadow-[0_0_25px_rgba(124,58,237,0.7)] backdrop-blur-sm pulse-subtle",
+        pulsing:
+          "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md hover:shadow-lg hover:opacity-90 hover-lift pulse-subtle",
       },
       size: {
         default: "h-10 px-4 py-2",

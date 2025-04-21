@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import { useI18n } from "@/app/i18n/context";
 
 // Register GSAP plugins
 if (typeof window !== "undefined") {
@@ -38,9 +39,20 @@ interface ServiceCardProps {
   outcomeTitle: string;
   outcomeDescription: string;
   index: number;
+  seeResults: string;
+  backToService: string;
 }
 
-function ServiceCard({ title, description, icon, gradient, outcomeTitle, outcomeDescription, index }: ServiceCardProps) {
+// Service item type to match dictionary structure
+interface ServiceItem {
+  id: number;
+  title: string;
+  description: string;
+  outcomeTitle: string;
+  outcomeDescription: string;
+}
+
+function ServiceCard({ title, description, icon, gradient, outcomeTitle, outcomeDescription, index, seeResults, backToService }: ServiceCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isFlipped, setIsFlipped] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -161,7 +173,7 @@ function ServiceCard({ title, description, icon, gradient, outcomeTitle, outcome
             </div>
             
             <div className="flex justify-between items-center mt-6">
-              <span className="text-sm text-gray-500">See results</span>
+              <span className="text-sm text-gray-500">{seeResults}</span>
               <div className={`p-2 rounded-full ${gradient.replace('bg-gradient-to-br', 'bg-gradient-to-r')} opacity-80 transform transition-transform duration-300 ${isHovering ? 'scale-110' : ''}`}>
                 <ArrowRight className="h-4 w-4 text-white" />
               </div>
@@ -202,7 +214,7 @@ function ServiceCard({ title, description, icon, gradient, outcomeTitle, outcome
             </div>
             
             <div className="flex justify-between items-center mt-6">
-              <span className="text-sm text-gray-500">Back to service</span>
+              <span className="text-sm text-gray-500">{backToService}</span>
               <div className={`p-2 rounded-full ${gradient.replace('bg-gradient-to-br', 'bg-gradient-to-r')} opacity-80`}>
                 <ArrowRight className="h-4 w-4 text-white rotate-180" />
               </div>
@@ -214,88 +226,44 @@ function ServiceCard({ title, description, icon, gradient, outcomeTitle, outcome
   );
 }
 
-const services = [
-  {
-    id: 1,
-    title: "RevOps Automation",
-    description: "Streamline your revenue operations with intelligent automation solutions.",
-    icon: <BarChart className="h-8 w-8 text-purple-400" />,
-    gradient: "bg-gradient-to-br from-purple-600 to-blue-600",
-    outcomeTitle: "Revenue Growth",
-    outcomeDescription: "35% increase in conversions and 28% faster deal cycles. Your team can focus on strategy instead of repetitive tasks."
-  },
-  {
-    id: 2,
-    title: "Business Intelligence",
-    description: "Transform data into actionable insights that drive strategic decision-making.",
-    icon: <LineChart className="h-8 w-8 text-blue-400" />,
-    gradient: "bg-gradient-to-br from-blue-600 to-teal-600",
-    outcomeTitle: "Data-Driven Success",
-    outcomeDescription: "Access real-time insights that reveal hidden opportunities and help you make confident decisions faster than competitors."
-  },
-  {
-    id: 3,
-    title: "Smart Scheduling",
-    description: "Eliminate coordination headaches with intelligent meeting management.",
-    icon: <Calendar className="h-8 w-8 text-teal-400" />,
-    gradient: "bg-gradient-to-br from-teal-600 to-emerald-600",
-    outcomeTitle: "Time Reclaimed",
-    outcomeDescription: "Save 5+ hours weekly on scheduling and coordination. Higher meeting attendance rates and zero double-bookings."
-  },
-  {
-    id: 4,
-    title: "Productivity Systems",
-    description: "Track and optimize performance with seamless time management solutions.",
-    icon: <Clock className="h-8 w-8 text-emerald-400" />,
-    gradient: "bg-gradient-to-br from-emerald-600 to-lime-600",
-    outcomeTitle: "Optimized Performance",
-    outcomeDescription: "20% boost in team productivity with clear metrics on what's working and what needs improvement."
-  },
-  {
-    id: 5,
-    title: "Unified Data Flow",
-    description: "Connect your entire tech ecosystem with seamless data integration.",
-    icon: <Database className="h-8 w-8 text-amber-400" />,
-    gradient: "bg-gradient-to-br from-amber-600 to-orange-600",
-    outcomeTitle: "Single Source of Truth",
-    outcomeDescription: "Eliminate data silos and reduce errors by 40%. Every system updated in real-time with consistent information."
-  },
-  {
-    id: 6,
-    title: "Team Synchronization",
-    description: "Foster collaboration with purpose-built workflows and communication tools.",
-    icon: <Users className="h-8 w-8 text-orange-400" />,
-    gradient: "bg-gradient-to-br from-orange-600 to-red-600",
-    outcomeTitle: "Seamless Collaboration",
-    outcomeDescription: "Cross-functional teams working in perfect harmony with 50% faster project completion and improved satisfaction."
-  },
-  {
-    id: 7,
-    title: "System Connectivity",
-    description: "Create powerful connections between all your business platforms and tools.",
-    icon: <Code2 className="h-8 w-8 text-red-400" />,
-    gradient: "bg-gradient-to-br from-red-600 to-rose-600",
-    outcomeTitle: "Unified Workflows",
-    outcomeDescription: "Automated data exchange between systems eliminates 95% of manual transfers and copy-paste tasks."
-  },
-  {
-    id: 8,
-    title: "AI Assistants",
-    description: "Deploy intelligent assistants that handle routine tasks with human-like precision.",
-    icon: <Bot className="h-8 w-8 text-rose-400" />,
-    gradient: "bg-gradient-to-br from-rose-600 to-pink-600",
-    outcomeTitle: "24/7 Operation",
-    outcomeDescription: "Continuous task execution and customer service that never sleeps, reducing response times by 80%."
-  }
-];
+const getServiceIcons = () => {
+  return {
+    revops: <BarChart className="h-8 w-8 text-purple-400" />,
+    business: <LineChart className="h-8 w-8 text-blue-400" />,
+    scheduling: <Calendar className="h-8 w-8 text-teal-400" />,
+    productivity: <Clock className="h-8 w-8 text-emerald-400" />,
+    data: <Database className="h-8 w-8 text-amber-400" />,
+    team: <Users className="h-8 w-8 text-orange-400" />,
+    system: <Code2 className="h-8 w-8 text-red-400" />,
+    ai: <Bot className="h-8 w-8 text-rose-400" />
+  };
+};
+
+const getServiceGradients = () => {
+  return {
+    1: "bg-gradient-to-br from-purple-600 to-blue-600",
+    2: "bg-gradient-to-br from-blue-600 to-teal-600",
+    3: "bg-gradient-to-br from-teal-600 to-emerald-600",
+    4: "bg-gradient-to-br from-emerald-600 to-lime-600",
+    5: "bg-gradient-to-br from-amber-600 to-orange-600",
+    6: "bg-gradient-to-br from-orange-600 to-red-600",
+    7: "bg-gradient-to-br from-red-600 to-rose-600",
+    8: "bg-gradient-to-br from-rose-600 to-pink-600"
+  };
+};
 
 export default function ServicesGrid() {
+  const { dictionary } = useI18n();
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const descriptionRef = useRef<HTMLDivElement>(null);
   const servicesGridRef = useRef<HTMLDivElement>(null);
   const spotlightRef = useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  
+  const serviceItems = dictionary.homepage.services.items as ServiceItem[];
+  const icons = getServiceIcons();
+  const gradients = getServiceGradients();
   
   // Text highlight animation for "Spot issues faster"
   useEffect(() => {
@@ -382,6 +350,21 @@ export default function ServicesGrid() {
     };
   }, []);
   
+  // Helper function to get icon based on service ID
+  const getIconForService = (id: number) => {
+    switch(id) {
+      case 1: return icons.revops;
+      case 2: return icons.business;
+      case 3: return icons.scheduling;
+      case 4: return icons.productivity;
+      case 5: return icons.data;
+      case 6: return icons.team;
+      case 7: return icons.system;
+      case 8: return icons.ai;
+      default: return icons.revops;
+    }
+  };
+  
   return (
     <section 
       ref={sectionRef}
@@ -418,7 +401,7 @@ export default function ServicesGrid() {
             ref={headingRef}
             className="relative inline-block text-5xl md:text-6xl font-bold mb-8 text-white"
           >
-            <span className="relative z-10">Transform Your Workflow</span>
+            <span className="relative z-10">{dictionary.homepage.services.title}</span>
             
             {/* Spotlight effect behind text */}
             <div className="absolute -inset-4 -z-10 opacity-0 spotlight-glow rounded-full bg-gradient-to-r from-purple-600/30 to-blue-600/30 blur-2xl"></div>
@@ -429,13 +412,19 @@ export default function ServicesGrid() {
             className="max-w-3xl mx-auto relative"
           >
             <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-              We don't just automate tasks—we reinvent how your business operates. 
-              Our solutions help you <span className="spotlight-text relative font-medium bg-gradient-to-r from-purple-400 to-blue-400 bg-no-repeat bg-left-bottom">spot issues faster</span> and focus on what matters.
+              {dictionary.homepage.services.description.split("spot issues faster")[0]} 
+              <span className="spotlight-text relative font-medium bg-gradient-to-r from-purple-400 to-blue-400 bg-no-repeat bg-left-bottom">
+                {dictionary.homepage.services.description.includes("spot issues faster") 
+                  ? "spot issues faster" 
+                  : "sneller problemen op te sporen"}
+              </span>
+              {dictionary.homepage.services.description.split("spot issues faster")[1] || 
+               dictionary.homepage.services.description.split("sneller problemen op te sporen")[1]}
             </p>
             
             <div className="flex items-center justify-center gap-2 font-light text-gray-400">
               <BookOpen className="h-4 w-4" />
-              <span>Tap or click cards to see the outcomes</span>
+              <span>{dictionary.homepage.services.hint}</span>
             </div>
           </div>
         </div>
@@ -445,16 +434,18 @@ export default function ServicesGrid() {
           ref={servicesGridRef}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
         >
-          {services.map((service, index) => (
+          {serviceItems.map((service: ServiceItem, index: number) => (
             <ServiceCard 
               key={service.id}
               title={service.title}
               description={service.description}
-              icon={service.icon}
-              gradient={service.gradient}
+              icon={getIconForService(service.id)}
+              gradient={gradients[service.id as keyof typeof gradients]}
               outcomeTitle={service.outcomeTitle}
               outcomeDescription={service.outcomeDescription}
               index={index}
+              seeResults={dictionary.homepage.services.cards.seeResults}
+              backToService={dictionary.homepage.services.cards.backToService}
             />
           ))}
         </div>

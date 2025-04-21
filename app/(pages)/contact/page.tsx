@@ -2,7 +2,7 @@
 import dynamic from 'next/dynamic';
 
 // Import the client component dynamically
-const ContactForm = dynamic(() => import("@/components/contact/contact-form"), {
+const ContactForm = dynamic(() => import("@/components/contact/contact-form-i18n"), {
   ssr: true
 });
 

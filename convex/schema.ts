@@ -82,6 +82,19 @@ export const contactSourceValidator = v.union(
 
 export type ContactSource = Infer<typeof contactSourceValidator>;
 
+// Define message categories for LinkedOut
+export const MESSAGE_CATEGORIES = {
+    LOVE_YOUR_CONTENT: "love-your-content",
+    COLLAB_PROPOSAL: "collab-proposal",
+} as const;
+
+export const messageCategoryValidator = v.union(
+    v.literal(MESSAGE_CATEGORIES.LOVE_YOUR_CONTENT),
+    v.literal(MESSAGE_CATEGORIES.COLLAB_PROPOSAL),
+);
+
+export type MessageCategory = Infer<typeof messageCategoryValidator>;
+
 export default defineSchema({
     users: defineTable({
         createdAt: v.string(),
@@ -280,4 +293,45 @@ export default defineSchema({
         createdAt: v.number(),
         updatedAt: v.optional(v.number())
     }),
+
+    // LinkedOut - People table
+    people: defineTable({
+        firstName: v.optional(v.string()),
+        lastName: v.optional(v.string()),
+        linkedinUrl: v.optional(v.string()),
+        avatar: v.optional(v.string()),
+        followers: v.optional(v.number()),
+        userId: v.string(), // The Clerk user who owns this record
+        createdAt: v.number(),
+        updatedAt: v.number(),
+    })
+        .index("by_user", ["userId"])
+        .index("by_linkedin_url", ["linkedinUrl"]),
+
+    // LinkedOut - Messages table
+    messages: defineTable({
+        content: v.string(),
+        chatId: v.optional(v.string()),
+        messageId: v.optional(v.string()),
+        timestamp: v.string(),
+        isFromMe: v.boolean(),
+        category: v.optional(messageCategoryValidator),
+        personId: v.optional(v.id("people")),
+        userId: v.string(), // The Clerk user who owns this record
+        createdAt: v.number(),
+        updatedAt: v.number(),
+    })
+        .index("by_user", ["userId"])
+        .index("by_chat", ["chatId"])
+        .index("by_person", ["personId"]),
+
+    // LinkedOut - Text Snippets table
+    textSnippets: defineTable({
+        name: v.string(),
+        value: v.string(),
+        userId: v.string(), // The Clerk user who owns this record
+        createdAt: v.number(),
+        updatedAt: v.number(),
+    })
+        .index("by_user", ["userId"]),
 })
