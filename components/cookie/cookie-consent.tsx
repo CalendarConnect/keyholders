@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { X } from 'lucide-react'
+import { updateGoogleAnalyticsConsent } from '@/utils/analytics'
 
 export default function CookieConsent() {
   const [isVisible, setIsVisible] = useState(false)
@@ -24,11 +25,13 @@ export default function CookieConsent() {
 
   const handleAccept = () => {
     localStorage.setItem('cookie_consent', 'accepted')
+    updateGoogleAnalyticsConsent(true) // Grant consent for analytics
     setIsVisible(false)
   }
 
   const handleDecline = () => {
     localStorage.setItem('cookie_consent', 'declined')
+    updateGoogleAnalyticsConsent(false) // Deny consent for analytics
     setIsVisible(false)
   }
 

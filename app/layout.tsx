@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/sonner";
 import CookieConsent from "@/components/cookie/cookie-consent";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Analytics } from "@vercel/analytics/react";
+import GoogleAnalytics from "@/components/analytics/google-analytics";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
 import { I18nProvider } from "./i18n/context";
@@ -76,6 +77,7 @@ export default function RootLayout({
             </ThemeProvider>
           </Provider>
           <Analytics />
+          <GoogleAnalytics />
         </body>
       </html>
     </ClerkProvider>
