@@ -1,92 +1,62 @@
-// Server-Sent Events (SSE) proxy for n8n cloud
 import { NextApiRequest, NextApiResponse } from 'next';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'GET') {
-    return res.status(405).json({ error: 'Method not allowed' });
+    res.status(405).end('Method Not Allowed');
+    return;
   }
 
-  // Set SSE headers on the response
-  res.setHeader('Content-Type', 'text/event-stream');
-  res.setHeader('Cache-Control', 'no-cache');
-  res.setHeader('Connection', 'keep-alive');
-  res.setHeader('X-Accel-Buffering', 'no'); // Prevents buffering for Nginx
-  
+  const targetUrl = 'https://keyholders.app.n8n.cloud/mcp/845de225-2b3c-4643-8fc5-b310446de9b5/sse';
+
   try {
-    // Create headers to forward to the n8n cloud
-    const headers = new Headers();
-    
-    // Forward relevant headers from the original request
-    Object.entries(req.headers).forEach(([key, value]) => {
-      // Skip connection headers that might interfere with the fetch request
-      if (!['host', 'connection', 'accept-encoding'].includes(key.toLowerCase()) && value !== undefined) {
-        headers.append(key, Array.isArray(value) ? value.join(', ') : value);
-      }
+    const upstream = await fetch(targetUrl, {
+      headers: {
+        'Accept': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+      },
     });
-    
-    // Set the Accept header to text/event-stream
-    headers.set('Accept', 'text/event-stream');
-    
-    const targetUrl = 'https://keyholders.app.n8n.cloud/mcp/845de225-2b3c-4643-8fc5-b310446de9b5/sse';
-    
-    // Make the fetch request to the n8n cloud
-    const response = await fetch(targetUrl, {
-      method: 'GET',
-      headers,
-    });
-    
-    if (!response.ok) {
-      throw new Error(`Upstream server returned ${response.status} ${response.statusText}`);
+
+    if (!upstream.ok || !upstream.body) {
+      res.status(502).end('Bad upstream response');
+      return;
     }
-    
-    // Ensure we have a readable stream
-    if (!response.body) {
-      throw new Error("No response body from upstream server");
-    }
-    
-    // Get the ReadableStream from the response
-    const reader = response.body.getReader();
-    
-    // Process the stream
-    async function processStream() {
+
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
+    res.setHeader('X-Accel-Buffering', 'no');
+
+    const reader = upstream.body.getReader();
+    const decoder = new TextDecoder();
+
+    const pump = async () => {
       try {
         while (true) {
           const { done, value } = await reader.read();
-          
-          if (done) {
-            res.end();
-            break;
-          }
-          
-          // Write the chunk to the response
-          res.write(value);
-          
-          // No need to flush manually - Node.js will handle the streaming
+          if (done) break;
+          const chunk = decoder.decode(value, { stream: true });
+          res.write(chunk);
+          if (typeof (res as any).flush === 'function') (res as any).flush();
         }
-      } catch (error) {
-        console.error('Error processing stream:', error);
+      } catch (err) {
+        console.error('Stream error:', err);
+      } finally {
         res.end();
       }
-    }
-    
-    // Start processing the stream
-    processStream();
-    
-    // Handle client disconnect
+    };
+
     req.on('close', () => {
       reader.cancel();
+      res.end();
     });
-    
+
+    pump();
   } catch (error) {
     console.error('SSE Proxy Error:', error);
-    // If headers have already been sent, we can only end the response
     if (!res.headersSent) {
-      res.status(500).json({ error: 'Internal Server Error' });
+      res.status(500).end('Internal Server Error');
     } else {
       res.end();
     }
   }
-} 
+}
