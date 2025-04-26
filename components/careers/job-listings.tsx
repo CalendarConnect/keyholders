@@ -18,7 +18,7 @@ const jobs: JobListing[] = [
     title: "AI Solutions Architect",
     type: "Full-Time",
     location: "Remote (Europe)",
-    salary: "€2,000-€3,500",
+    salary: "€4,500-€6,500",
     slug: "ai-solutions-architect"
   },
   {
@@ -26,7 +26,7 @@ const jobs: JobListing[] = [
     title: "Automation Enablement Consultant",
     type: "Full-Time",
     location: "Remote (Europe)",
-    salary: "€1,500-€5,000",
+    salary: "€4,000-€6,000",
     slug: "automation-enablement-consultant"
   }
 ];
