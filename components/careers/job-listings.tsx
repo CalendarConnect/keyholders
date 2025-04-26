@@ -14,28 +14,20 @@ if (typeof window !== "undefined") {
 // Sample job data
 const jobs: JobListing[] = [
   {
-    id: "ai-integration-specialist",
-    title: "AI Integration Specialist",
+    id: "ai-solutions-architect",
+    title: "AI Solutions Architect",
     type: "Full-Time",
     location: "Remote (Europe)",
     salary: "€2,000-€3,500",
-    slug: "ai-integration-specialist"
+    slug: "ai-solutions-architect"
   },
   {
-    id: "ai-engineer",
-    title: "AI Engineer",
+    id: "automation-enablement-consultant",
+    title: "Automation Enablement Consultant",
     type: "Full-Time",
     location: "Remote (Europe)",
     salary: "€1,500-€5,000",
-    slug: "ai-engineer"
-  },
-  {
-    id: "ai-trainer",
-    title: "AI Trainer",
-    type: "Full-Time",
-    location: "Remote (Europe)",
-    salary: "€2,000-€3,500",
-    slug: "ai-trainer"
+    slug: "automation-enablement-consultant"
   }
 ];
 

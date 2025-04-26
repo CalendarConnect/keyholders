@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  keywords: "careers, jobs, Keyholders Agency, AI jobs, automation specialist, join our team, job openings, hiring, AI solutions architect, Automation Enablement Consultant, remote work, Netherlands, EU AI Act",
+  keywords: "careers, jobs, Keyholders Agency, AI jobs, automation specialist, join our team, job openings, hiring, AI Solutions Architect, Automation Enablement Consultant, remote work, Netherlands, EU AI Act",
   authors: [{ name: "Keyholders Agency" }],
   category: "Vacatures",
 };
