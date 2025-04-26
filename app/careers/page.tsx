@@ -18,7 +18,7 @@ export const metadata: Metadata = {
         alt: "Careers at Keyholders Agency",
       },
     ],
-    locale: "en_US",
+    locale: "nl_NL",
     type: "website",
   },
   alternates: {
@@ -28,9 +28,9 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  keywords: "careers, jobs, Keyholders Agency, AI jobs, automation specialist, join our team, job openings, hiring, AI engineer, AI trainer, integration specialist, remote work, Netherlands, EU AI Act",
+  keywords: "careers, jobs, Keyholders Agency, AI jobs, automation specialist, join our team, job openings, hiring, AI solutions architect, Automation Enablement Consultant, remote work, Netherlands, EU AI Act",
   authors: [{ name: "Keyholders Agency" }],
-  category: "Careers",
+  category: "Vacatures",
 };
 
 export default function CareersPage() {
@@ -43,7 +43,7 @@ export default function CareersPage() {
             "@context": "https://schema.org",
             "@type": "JobPosting",
             "title": "Become a Keyholder",
-            "description": "Join our team of AI automation specialists and help shape the future of business efficiency. We're looking for talented individuals passionate about AI solutions that respect privacy, security, and human guidance.",
+            "description": "Join our team of AI solutions architects and help shape the future of business efficiency. We're looking for talented individuals passionate about AI solutions that respect privacy, security, and human guidance.",
             "datePosted": new Date().toISOString().split('T')[0],
             "hiringOrganization": {
               "@type": "Organization",
