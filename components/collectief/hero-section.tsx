@@ -103,7 +103,7 @@ export default function HeroSection() {
             className="text-lg md:text-xl text-gray-300"
           >
             Elke groeivraag is een ander slot.
-            Keyholders is een zorgvuldig samengesteld netwerk van senior‑experts dat samen de <strong className="text-white">master Key</strong> vormt voor duurzame AI‑groei: <strong className="text-white">strategie, automatisering, adoptie, compliance en security</strong>. Geen traditioneel bureau, nul logge overhead—wél de gecombineerde denkkracht van specialisten die elkaar blind vertrouwen.
+            Keyholders is een zorgvuldig samengesteld netwerk van senior‑experts dat samen de <strong className="text-white">master Key</strong> vormt voor duurzame AI‑groei: <strong className="text-white">strategie, automatisering, adoptie, compliance en security</strong>. Geen traditioneel bureau, nul logge overhead, wél de gecombineerde denkkracht van specialisten die elkaar blind vertrouwen.
           </p>
         </div>
       </div>
