@@ -26,7 +26,7 @@ const keyholders: KeyholderMember[] = [
     name: "Christian Bleeker",
     title: "The Flowsmith",
     description: "Full‑stack AI‑software‑developer. Smelt processen, data en AI‑infrastructuur tot end‑to‑end automatiseringen. Bouwt alles in eigen beheer, van VPS‑hosting en datastructuur tot chat‑interfaces, n8n‑workflows en koppelingen met jouw bestaande stack.",
-    image: "/images/keyholders/Chris.jfif",
+    image: "/images/keyholders/Chris.jpg",
     linkedin: "https://www.linkedin.com/in/cbleeker/"
   },
   {
@@ -34,7 +34,7 @@ const keyholders: KeyholderMember[] = [
     name: "Renier Bleeker",
     title: "The Optimus Tacticus",
     description: "Converteert complexe ideeën naar kristalheldere n8n‑strategieën. Ontwerpt en lanceert schaalbare low‑code workflows die AI‑power naadloos verbinden met business‑logica, en levert businesswaarde in weken.",
-    image: "/images/keyholders/Renier.jfif",
+    image: "/images/keyholders/Renier.jpg",
     linkedin: "https://www.linkedin.com/in/renierbleeker/"
   },
   {
@@ -42,7 +42,7 @@ const keyholders: KeyholderMember[] = [
     name: "Els Verheirstraeten",
     title: "The Compliance Compass",
     description: "Architect van de AI Compliance Kit. Maakt regels menselijk en voorkomt sancties nog vóór ze ontstaan.",
-    image: "/images/keyholders/Els.jfif",
+    image: "/images/keyholders/Els.jpg",
     linkedin: "https://www.linkedin.com/in/els-verheirstraeten/"
   },
   {
@@ -50,7 +50,7 @@ const keyholders: KeyholderMember[] = [
     name: "Erik van der Veen",
     title: "The Adoption Accelerator",
     description: "Traint teams in prompt‑craft en AI‑mindset. Verankert verandering in dagelijkse routines.",
-    image: "/images/keyholders/erikvanderveen.jfif",
+    image: "/images/keyholders/erikvanderveen.jpg",
     linkedin: "https://www.linkedin.com/in/erikvanderveen/"
   },
   {
@@ -58,7 +58,7 @@ const keyholders: KeyholderMember[] = [
     name: "Sandra Dorrio Estrada",
     title: "The Cyber Sentinel",
     description: "NIS2‑specialist. Stemt elk AI‑systeem af op top‑security en houdt auditors én hackers buiten.",
-    image: "/images/keyholders/Sandra.jfif",
+    image: "/images/keyholders/Sandra.jpg",
     linkedin: "https://www.linkedin.com/in/sandranl/"
   }
 ];
@@ -158,6 +158,8 @@ export default function TeamSection() {
                         src={member.image}
                         alt={member.name}
                         fill
+                        sizes="(max-width: 768px) 100vw, 25vw"
+                        priority={index < 2}
                         style={{ objectFit: "cover" }}
                         className="transition-transform duration-300 group-hover:scale-105"
                       />
