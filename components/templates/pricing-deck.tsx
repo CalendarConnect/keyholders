@@ -12,7 +12,7 @@ export interface PricingPlan {
   priceCents?: number;
   priceText?: string;
   ctaLabel: string;
-  ctaType: "stripe" | "link";
+  ctaType: "link";
   ctaValue: string;
   bullets: string[];
   footer?: string;
@@ -29,7 +29,7 @@ export default function PricingDeck({ plans, templateSlug, onCheckout }: Pricing
   const [hoveredPlan, setHoveredPlan] = useState<string | null>(null);
   
   const handleAction = (plan: PricingPlan) => {
-    if (plan.ctaType === "stripe" || plan.tier === "giveaway") {
+    if (plan.tier === "giveaway") {
       onCheckout(plan);
     } else if (plan.ctaType === "link") {
       window.open(plan.ctaValue, "_blank");
