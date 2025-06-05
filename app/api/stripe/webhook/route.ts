@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { ConvexHttpClient } from "convex/browser";
 import { api } from "@/convex/_generated/api";
 import Stripe from "stripe";
-import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET || "", {
@@ -10,12 +9,6 @@ const stripe = new Stripe(process.env.STRIPE_SECRET || "", {
 });
 
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL || "");
-
-// Initialize Supabase client
-const supabase = createClient(
-  process.env.SUPABASE_URL || "",
-  process.env.SUPABASE_SERVICE_ROLE || ""
-);
 
 // Initialize Resend
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -60,33 +53,23 @@ export async function POST(req: NextRequest) {
         throw new Error(`Template with slug "${templateSlug}" not found`);
       }
 
-      // Generate a signed URL for the template file download
-      const fileName = `${template.slug}-${tier}.zip`;
-      const { data: signedUrl } = await supabase.storage
-        .from("template-files")
-        .createSignedUrl(`${templateSlug}/${fileName}`, 24 * 60 * 60); // 24 hours
-
-      if (!signedUrl) {
-        throw new Error("Failed to generate signed download URL");
-      }
-
-      // Update order in Convex with download link
+      // Update order in Convex
       await convex.mutation(api.templates.updateOrderWithDownload, {
         stripeSessionId: session.id,
-        downloadUrl: signedUrl,
-        downloadExpiry: Date.now() + 24 * 60 * 60 * 1000, // 24 hours from now
+        downloadUrl: `https://keyholders.agency/templates/${templateSlug}`, // Direct template page
+        downloadExpiry: Date.now() + 30 * 24 * 60 * 60 * 1000, // 30 days from now
       });
 
-      // Send email with download link
+      // Send email confirmation
       await resend.emails.send({
         from: "noreply@keyholders.agency",
         to: email,
-        subject: `Your Keyholders Template Download: ${template.name}`,
+        subject: `Your Keyholders Template Purchase: ${template.name}`,
         html: `
           <h1>Thank you for your purchase!</h1>
-          <p>Your download for <strong>${template.name}</strong> (${tier}) is ready:</p>
-          <p><a href="${signedUrl}" target="_blank">Download Now</a></p>
-          <p>This link is valid for 24 hours. If you need to access your download after that, please contact us.</p>
+          <p>You've successfully purchased <strong>${template.name}</strong> (${tier}).</p>
+          <p><a href="https://keyholders.agency/templates/${templateSlug}" target="_blank">Access Your Template</a></p>
+          <p>You can access your template at any time from your account dashboard.</p>
           <p>If you have any questions about setting up your template, please don't hesitate to reach out.</p>
           <p>Best regards,<br>The Keyholders Team</p>
         `,
