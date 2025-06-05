@@ -95,6 +95,81 @@ export const messageCategoryValidator = v.union(
 
 export type MessageCategory = Infer<typeof messageCategoryValidator>;
 
+export const TEMPLATE_CATEGORIES = {
+    EMAIL_MARKETING: "email-marketing",
+    LEAD_GENERATION: "lead-generation",
+    SOCIAL_MEDIA: "social-media",
+    DATA_AUTOMATION: "data-automation",
+    CRM_INTEGRATION: "crm-integration",
+    CUSTOMER_SUPPORT: "customer-support",
+    E_COMMERCE: "e-commerce",
+    PROJECT_MANAGEMENT: "project-management",
+    RECRUITMENT: "recruitment",
+    ANALYTICS: "analytics",
+    CONTENT_MARKETING: "content-marketing",
+    FINANCE: "finance",
+    SALES: "sales",
+    OPERATIONS: "operations",
+} as const;
+
+export const templateCategoryValidator = v.union(
+    v.literal(TEMPLATE_CATEGORIES.EMAIL_MARKETING),
+    v.literal(TEMPLATE_CATEGORIES.LEAD_GENERATION),
+    v.literal(TEMPLATE_CATEGORIES.SOCIAL_MEDIA),
+    v.literal(TEMPLATE_CATEGORIES.DATA_AUTOMATION),
+    v.literal(TEMPLATE_CATEGORIES.CRM_INTEGRATION),
+    v.literal(TEMPLATE_CATEGORIES.CUSTOMER_SUPPORT),
+    v.literal(TEMPLATE_CATEGORIES.E_COMMERCE),
+    v.literal(TEMPLATE_CATEGORIES.PROJECT_MANAGEMENT),
+    v.literal(TEMPLATE_CATEGORIES.RECRUITMENT),
+    v.literal(TEMPLATE_CATEGORIES.ANALYTICS),
+    v.literal(TEMPLATE_CATEGORIES.CONTENT_MARKETING),
+    v.literal(TEMPLATE_CATEGORIES.FINANCE),
+    v.literal(TEMPLATE_CATEGORIES.SALES),
+    v.literal(TEMPLATE_CATEGORIES.OPERATIONS),
+);
+
+export type TemplateCategory = Infer<typeof templateCategoryValidator>;
+
+export const TEMPLATE_PLAN_TIERS = {
+    DIY: "diy",
+    INTEGRATION: "integration",
+    CUSTOM: "custom",
+    GIVEAWAY: "giveaway",
+} as const;
+
+export const templatePlanTierValidator = v.union(
+    v.literal(TEMPLATE_PLAN_TIERS.DIY),
+    v.literal(TEMPLATE_PLAN_TIERS.INTEGRATION),
+    v.literal(TEMPLATE_PLAN_TIERS.CUSTOM),
+    v.literal(TEMPLATE_PLAN_TIERS.GIVEAWAY),
+);
+
+export type TemplatePlanTier = Infer<typeof templatePlanTierValidator>;
+
+// Define where the lead found out about Keyholders
+export const LEAD_SOURCES = {
+    LINKEDIN_CHRISTIAN: "linkedin-christian",
+    LINKEDIN_RENIER: "linkedin-renier",
+    LINKEDIN_ERIK: "linkedin-erik",
+    LINKEDIN_ELS: "linkedin-els",
+    LINKEDIN_GENERAL: "linkedin-general",
+    FRIEND_COLLEAGUE: "friend-colleague",
+    OTHER: "other",
+} as const;
+
+export const leadSourceValidator = v.union(
+    v.literal(LEAD_SOURCES.LINKEDIN_CHRISTIAN),
+    v.literal(LEAD_SOURCES.LINKEDIN_RENIER),
+    v.literal(LEAD_SOURCES.LINKEDIN_ERIK),
+    v.literal(LEAD_SOURCES.LINKEDIN_ELS), 
+    v.literal(LEAD_SOURCES.LINKEDIN_GENERAL),
+    v.literal(LEAD_SOURCES.FRIEND_COLLEAGUE),
+    v.literal(LEAD_SOURCES.OTHER),
+);
+
+export type LeadSource = Infer<typeof leadSourceValidator>;
+
 export default defineSchema({
     users: defineTable({
         createdAt: v.string(),
@@ -334,4 +409,90 @@ export default defineSchema({
         updatedAt: v.number(),
     })
         .index("by_user", ["userId"]),
+
+    // Templates Marketplace
+    templates: defineTable({
+        slug: v.string(),
+        name: v.string(),
+        category: templateCategoryValidator,
+        author: v.union(v.literal("christian"), v.literal("renier")),
+        heroUrl: v.string(),
+        icons: v.array(v.string()),
+        sticker: v.optional(v.string()),
+        subtitle: v.optional(v.string()),
+        descriptionBlocks: v.object({
+            whoFor: v.string(),
+            problem: v.string(),
+            whatItDoes: v.string(),
+            setup: v.string(),
+            customise: v.string(),
+        }),
+        pricing: v.array(v.object({
+            tier: templatePlanTierValidator,
+            label: v.string(),
+            tagline: v.optional(v.string()),
+            priceMode: v.union(v.literal("fixed"), v.literal("text")),
+            priceCents: v.optional(v.number()),
+            priceText: v.optional(v.string()),
+            ctaLabel: v.string(),
+            ctaType: v.union(v.literal("stripe"), v.literal("link")),
+            ctaValue: v.string(),
+            bullets: v.array(v.string()),
+            footer: v.optional(v.string()),
+            highlight: v.boolean(),
+        })),
+        lastUpdated: v.number(),
+        createdBy: v.string(),
+        createdAt: v.number(),
+        updatedAt: v.number(),
+    })
+        .index("by_slug", ["slug"])
+        .index("by_category", ["category"])
+        .index("by_created", ["createdAt"]),
+    
+    orders: defineTable({
+        stripeSessionId: v.string(),
+        email: v.string(),
+        templateSlug: v.string(),
+        priceId: v.string(),
+        createdAt: v.number(),
+        downloadUrl: v.optional(v.string()),
+        downloadExpiry: v.optional(v.number()),
+        status: v.union(v.literal("pending"), v.literal("complete"), v.literal("failed")),
+    })
+        .index("by_session", ["stripeSessionId"])
+        .index("by_template", ["templateSlug"])
+        .index("by_email", ["email"]),
+
+    // Giveaway leads
+    giveawayLeads: defineTable({
+        firstName: v.string(),
+        lastName: v.string(),
+        website: v.string(),
+        email: v.string(),
+        source: leadSourceValidator,
+        templateSlug: v.string(),
+        filesDownloaded: v.array(v.object({
+            fileId: v.string(),
+            fileName: v.string(),
+            isDownloaded: v.boolean(),
+            downloadedAt: v.optional(v.number()),
+        })),
+        createdAt: v.number(),
+        updatedAt: v.number(),
+    })
+        .index("by_email", ["email"])
+        .index("by_template", ["templateSlug"]),
+    
+    // Template giveaway files
+    templateFiles: defineTable({
+        templateId: v.id("templates"),
+        fileId: v.string(), // Unique identifier for the file
+        fileName: v.string(),
+        fileUrl: v.string(),
+        fileType: v.string(), // mime type
+        fileSize: v.number(),
+        createdAt: v.number(),
+    })
+        .index("by_template", ["templateId"]),
 })

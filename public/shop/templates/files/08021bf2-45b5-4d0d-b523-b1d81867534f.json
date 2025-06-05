@@ -1,0 +1,223 @@
+{
+  "name": "Bonnetjes GPT",
+  "nodes": [
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "Line items have been successfully parsed and added to the Google Sheet",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        660,
+        340
+      ],
+      "id": "6eb2f328-61d1-414d-8bcf-50abea9f73e6",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "body.invoice, body.title, body.description, body.quantity, body.vatPercentage, body.vatAmount, body.total, body.date",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        220,
+        340
+      ],
+      "id": "2070bc3f-73f6-4b79-9a32-00cb64bfc7df",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "receipt",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        340
+      ],
+      "id": "8083eb23-6f3f-44ed-b7bf-72f4feecbc1a",
+      "name": "Parse Receipt",
+      "webhookId": "49f17f16-917f-44c8-9ae1-789832cecb17"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1IefNevwyfD89ddxsMU8PDI6mzzi8QFncPUo4VHAswQ8",
+          "mode": "list",
+          "cachedResultName": "Bonnetjes overzicht",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1IefNevwyfD89ddxsMU8PDI6mzzi8QFncPUo4VHAswQ8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Blad1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1IefNevwyfD89ddxsMU8PDI6mzzi8QFncPUo4VHAswQ8/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Titel": "={{ $json['body.title'] }}",
+            "Omschrijving": "={{ $('Parse Receipt').item.json.body.description }}",
+            "Aantal": "={{ $('Parse Receipt').item.json.body.quantity }}",
+            "Btw": "={{ $('Parse Receipt').item.json.body.vatAmount }}",
+            "Datum": "={{ $('Parse Receipt').item.json.body.date }}",
+            "btw %": "={{ $('Parse Receipt').item.json.body.vatPercentage }}",
+            "invoice #": "={{ $('Parse Receipt').item.json.body.invoice }}",
+            "Totaal": "={{ $('Parse Receipt').item.json.body.total }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "invoice #",
+              "displayName": "invoice #",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Titel",
+              "displayName": "Titel",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Omschrijving",
+              "displayName": "Omschrijving",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Aantal",
+              "displayName": "Aantal",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "btw %",
+              "displayName": "btw %",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Btw",
+              "displayName": "Btw",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Totaal",
+              "displayName": "Totaal",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Datum",
+              "displayName": "Datum",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        440,
+        340
+      ],
+      "id": "cd03051b-3756-4885-97ea-7a608b006718",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Sy8FT8YvRGO6aRTf",
+          "name": "Google Sheets account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Receipt": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "bd55b4d3-2826-4b54-92a2-b6417802b9a9",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "0d65a4e877d1bf6338bcf1c59cb37262c9e534631809aa002fc69c2046868699"
+  },
+  "id": "lGiK5X7e9Kb11VlZ",
+  "tags": []
+}

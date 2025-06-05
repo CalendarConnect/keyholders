@@ -27,6 +27,7 @@ import type * as n8nWorkflowQueries from "../n8nWorkflowQueries.js";
 import type * as n8nWorkflows from "../n8nWorkflows.js";
 import type * as settings from "../settings.js";
 import type * as subscriptions from "../subscriptions.js";
+import type * as templates from "../templates.js";
 import type * as users from "../users.js";
 
 /**
@@ -52,6 +53,7 @@ declare const fullApi: ApiFromModules<{
   n8nWorkflows: typeof n8nWorkflows;
   settings: typeof settings;
   subscriptions: typeof subscriptions;
+  templates: typeof templates;
   users: typeof users;
 }>;
 export declare const api: FilterApi<
