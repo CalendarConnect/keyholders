@@ -285,62 +285,7 @@ export const remove = mutation({
   },
 });
 
-/**
- * Create a new order (public)
- */
-export const createOrder = mutation({
-  args: {
-    stripeSessionId: v.string(),
-    email: v.string(),
-    templateSlug: v.string(),
-    priceId: v.string(),
-  },
-  handler: async (ctx, args) => {
-    // Check if template exists
-    const template = await ctx.db
-      .query("templates")
-      .withIndex("by_slug", (q) => q.eq("slug", args.templateSlug))
-      .first();
-
-    if (!template) {
-      throw new Error(`Template with slug "${args.templateSlug}" not found`);
-    }
-
-    return ctx.db.insert("orders", {
-      ...args,
-      createdAt: Date.now(),
-      status: "pending",
-    });
-  },
-});
-
-/**
- * Update an order with download link (webhook)
- */
-export const updateOrderWithDownload = mutation({
-  args: {
-    stripeSessionId: v.string(),
-    downloadUrl: v.string(),
-    downloadExpiry: v.number(),
-  },
-  handler: async (ctx, args) => {
-    // Find order by stripe session ID
-    const order = await ctx.db
-      .query("orders")
-      .withIndex("by_session", (q) => q.eq("stripeSessionId", args.stripeSessionId))
-      .first();
-
-    if (!order) {
-      throw new Error(`Order with session ID "${args.stripeSessionId}" not found`);
-    }
-
-    return ctx.db.patch(order._id, {
-      downloadUrl: args.downloadUrl,
-      downloadExpiry: args.downloadExpiry,
-      status: "complete",
-    });
-  },
-});
+// Order functions removed - using Polar.sh for payments now
 
 /**
  * Get a single template by ID

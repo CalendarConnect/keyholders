@@ -435,7 +435,7 @@ export default defineSchema({
             priceCents: v.optional(v.number()),
             priceText: v.optional(v.string()),
             ctaLabel: v.string(),
-            ctaType: v.union(v.literal("stripe"), v.literal("link")),
+            ctaType: v.literal("link"),
             ctaValue: v.string(),
             bullets: v.array(v.string()),
             footer: v.optional(v.string()),
@@ -450,19 +450,7 @@ export default defineSchema({
         .index("by_category", ["category"])
         .index("by_created", ["createdAt"]),
     
-    orders: defineTable({
-        stripeSessionId: v.string(),
-        email: v.string(),
-        templateSlug: v.string(),
-        priceId: v.string(),
-        createdAt: v.number(),
-        downloadUrl: v.optional(v.string()),
-        downloadExpiry: v.optional(v.number()),
-        status: v.union(v.literal("pending"), v.literal("complete"), v.literal("failed")),
-    })
-        .index("by_session", ["stripeSessionId"])
-        .index("by_template", ["templateSlug"])
-        .index("by_email", ["email"]),
+    // orders table removed - using Polar.sh for payments now
 
     // Giveaway leads
     giveawayLeads: defineTable({
