@@ -64,18 +64,6 @@ export default function CaseStudiesPage() {
                 {
                   "@type": "ListItem",
                   "position": 2,
-                  "url": "https://keyholders.agency/case-studies#sde-consultancy",
-                  "name": "SDE Consultancy Cyber Security"
-                },
-                {
-                  "@type": "ListItem",
-                  "position": 3,
-                  "url": "https://keyholders.agency/case-studies#upbeatles",
-                  "name": "Upbeatles PubQuiz"
-                },
-                {
-                  "@type": "ListItem",
-                  "position": 4,
                   "url": "https://keyholders.agency/case-studies#fokker",
                   "name": "Fokker V.O.F Constructor"
                 }

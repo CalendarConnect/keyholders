@@ -8,6 +8,7 @@
     "services": "Diensten",
     "caseStudies": "Case Studies",
     "aiScan": "AI Scan",
+    "aura": "Aura",
     "about": "Over Ons",
     "careers": "Word een Keyholder",
     "contact": "Contact",
@@ -245,18 +246,6 @@
         "clientName": "Bob",
         "description": "Een GPT waarmee elke medewerker pedagogische activiteiten kan schrijven in de stijl van Reggio Emilia — de kernvisie van de organisatie.",
         "clientQuote": "Keyholders bespaart ons tijd, maar nog belangrijker: het heeft onze manier van werken verrijkt. En ja, ik gebruik 'm ook voor mijn e-mails. Maar dat is off the record."
-      },
-      {
-        "companyName": "SDE Consultancy",
-        "clientName": "Sandra",
-        "description": "Een GPT die elke ochtend het belangrijkste cybersecurity-nieuws samenvat. Samengesteld op maat, in haar toon. Tijdens de eerste sessie bouwden we de merkidentiteit, tone of voice en de hele automatisering.",
-        "clientQuote": "Ik weet niet hoeveel tijd Christian me heeft bespaard. Alleen dat het veel is. En ik hou van cijfers, dus dat zegt wat."
-      },
-      {
-        "companyName": "Upbeatles PubQuiz",
-        "clientName": "Pascal",
-        "description": "Een GPT die samenwerkt met Canva. Elke dag automatisch een nieuwe pubquiz — klaar om te gebruiken.",
-        "clientQuote": "Ik stuurde een mail. Twee uur later had ik een link naar een werkende GPT. Wat voorheen 90 minuten per dag kostte, is nu in seconden geregeld. Bizar."
       },
       {
         "companyName": "Fokker V.O.F.",

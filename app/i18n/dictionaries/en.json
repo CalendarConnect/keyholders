@@ -8,6 +8,7 @@
     "services": "Services",
     "caseStudies": "Case Studies",
     "aiScan": "AI Scan",
+    "aura": "Aura",
     "about": "About Us",
     "careers": "Become a Keyholder",
     "contact": "Contact",
@@ -245,18 +246,6 @@
         "clientName": "Bob",
         "description": "A GPT that allows each employee to write pedagogical activities in the Reggio Emilia style—the core vision of the organization.",
         "clientQuote": "Keyholders saves us time, but more importantly: it has enriched our way of working. And yes, I use it for my emails too. But that's off the record."
-      },
-      {
-        "companyName": "SDE Consultancy",
-        "clientName": "Sandra",
-        "description": "A GPT that summarizes the most important cybersecurity news every morning. Customized to fit her tone. During the first session, we built the brand identity, tone of voice, and the entire automation.",
-        "clientQuote": "I don't know how much time Christian has saved me. Just that it's a lot. And I love numbers, so that's saying something."
-      },
-      {
-        "companyName": "Upbeatles PubQuiz",
-        "clientName": "Pascal",
-        "description": "A GPT that works with Canva. Automatically creating a new pub quiz every day—ready to use.",
-        "clientQuote": "I sent an email. Two hours later I had a link to a working GPT. What used to take 90 minutes per day is now handled in seconds. Incredible."
       },
       {
         "companyName": "Fokker V.O.F.",
