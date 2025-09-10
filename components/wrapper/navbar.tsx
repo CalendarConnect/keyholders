@@ -96,17 +96,6 @@ export default function NavBar() {
                 </SheetTitle>
               </SheetHeader>
               <div className="flex flex-col gap-1 mt-6">
-                {/* AI Partner link for mobile menu */}
-                <div className="px-2 pb-4 border-b border-blue-500/20">
-                  <Link href="/aipartner" prefetch={true}>
-                    <Button
-                      variant="ghost"
-                      className="w-full justify-start text-base font-semibold h-11 border border-blue-500/30 mb-2 text-white hover:bg-blue-500/20 hover:text-blue-300 transition-colors bg-gradient-to-r from-blue-500/10 to-cyan-500/10"
-                    >
-                      <span className="mr-2">🤖</span> AI Partner
-                    </Button>
-                  </Link>
-                </div>
                 {/* AI Act link for mobile menu */}
                 <div className="px-2 pb-4 border-b border-purple-900/20">
                   <Link href="/ai-act" prefetch={true}>
@@ -153,14 +142,6 @@ export default function NavBar() {
                       className="w-full justify-start text-base font-normal h-11 border border-purple-900/20 mb-2 text-white hover:bg-purple-500/10 hover:text-purple-300 transition-colors"
                     >
                       {dictionary.nav.caseStudies}
-                    </Button>
-                  </Link>
-                  <Link href="/Aura" prefetch={true}>
-                    <Button
-                      variant="ghost"
-                      className="w-full justify-start text-base font-normal h-11 border border-purple-900/20 mb-2 text-white hover:bg-purple-500/10 hover:text-purple-300 transition-colors"
-                    >
-                      {dictionary.nav.aura}
                     </Button>
                   </Link>
                   <Link href="/ai-scan" prefetch={true}>
@@ -228,9 +209,6 @@ export default function NavBar() {
 
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center gap-8">
-          <Link href="/aipartner" prefetch={true}>
-            <span className="text-white hover:text-blue-300 transition-colors text-sm font-semibold bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">AI Partner</span>
-          </Link>
           <Link href="/ai-act" prefetch={true}>
             <span className="text-white hover:text-purple-300 transition-colors text-sm">{dictionary.nav.euAiAct}</span>
           </Link>
@@ -261,9 +239,6 @@ export default function NavBar() {
 
           <Link href="/case-studies" prefetch={true}>
             <span className="text-white hover:text-purple-300 transition-colors text-sm">{dictionary.nav.caseStudies}</span>
-          </Link>
-          <Link href="/Aura" prefetch={true}>
-            <span className="text-white hover:text-purple-300 transition-colors text-sm">{dictionary.nav.aura}</span>
           </Link>
           <Link href="/ai-scan" prefetch={true}>
             <span className="text-white hover:text-purple-300 transition-colors text-sm hidden">{dictionary.nav.aiScan}</span>
